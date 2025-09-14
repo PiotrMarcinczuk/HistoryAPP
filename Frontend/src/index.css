@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+* {
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.custom-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+@theme {
+  --spacing-400px: 400px;
+
+  --color-orange-darker: #352314;
+  --color-yellow-darker: #3e3315;
+  --color-gray-navigation: #878787;
+  --color-text-primary: #e7ddc3;
+  --color-yellow-normal: #b2913c;
+  --color-green-active: #385e1a;
+
+  --text-extra-small: 0.625rem;
+  --text-small: 0.812rem;
+  --text-base: 1rem;
+  --text-bigger-base: 1.25rem;
+  --text-large: 1.562rem;
+  --text-extra-large: 1.938rem;
+  --text-2x-large: 2.438rem;
+  --text-3x-large: 3.062rem;
+  --text-4x-large: 3.812rem;
+}
