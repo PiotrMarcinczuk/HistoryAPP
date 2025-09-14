@@ -5,8 +5,8 @@
   font-optical-sizing: auto;
 }
 
-.custom-shadow {
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+.ttt {
+  text-shadow: -0.8px -0.5px 0 black;
 }
 
 @theme {

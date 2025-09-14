@@ -32,8 +32,10 @@ export default function Navigation() {
           <hr className="border-yellow-normal flex-1 ml-2" />
         </div>
 
-        <div className="mx-auto z-10 text-3x-large">1400 - 1500</div>
-        <ul className="flex flex-col w-full z-10">
+        <div className="mx-auto z-10 text-3x-large font-medium">
+          1400 - 1500
+        </div>
+        <ul className="flex flex-col w-full z-10 gap-1">
           <WarTitle title="Wielka Wojna z zakonem" isActive={true} />
           <WarTitle title="Wojna golubska" isActive={false} />
           <WarTitle title="Wojna głodowa" isActive={false} />
