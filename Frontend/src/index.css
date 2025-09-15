@@ -5,7 +5,12 @@
   font-optical-sizing: auto;
 }
 
-.ttt {
+html,
+body {
+  background-color: #91785d;
+}
+
+.war-title-shadow {
   text-shadow: -0.8px -0.5px 0 black;
 }
 
