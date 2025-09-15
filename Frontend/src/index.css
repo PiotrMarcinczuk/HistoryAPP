@@ -18,11 +18,12 @@ body {
   --spacing-400px: 400px;
 
   --color-orange-darker: #352314;
+  --color-orange-dark: #53381f;
   --color-yellow-darker: #3e3315;
   --color-gray-navigation: #878787;
   --color-text-primary: #e7ddc3;
   --color-yellow-normal: #b2913c;
-  --color-green-active: #385e1a;
+  --color-green-active: #238011;
 
   --text-extra-small: 0.625rem;
   --text-small: 0.812rem;

@@ -23,7 +23,7 @@ export default function Navigation() {
         <div className="absolute inset-0 bg-[url('/images/nav-bg.png')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-orange-darker/80"></div>
 
-        <div className="relative z-10 mx-auto mt-4">
+        <div className="relative z-10 mx-auto my-10">
           <img src={logo} alt="logo" />
         </div>
 
@@ -37,9 +37,7 @@ export default function Navigation() {
           <hr className="border-yellow-normal flex-1 ml-2" />
         </div>
 
-        <div className="mx-auto z-10 text-3x-large font-medium">
-          1400 - 1500
-        </div>
+        <div className="mx-auto z-10 text-3x-large mt-10">1400 - 1500</div>
         <ul className="flex flex-col w-full z-10 gap-1">
           <WarTitle title="Wielka Wojna z zakonem" isActive={true} />{" "}
           {/* API */}
@@ -61,7 +59,7 @@ export default function Navigation() {
       </section>
       <div
         className={`absolute top-1/2 ease-in duration-200 ${
-          isOpen ? "translate-x-1/2 right-0" : "translate-x-full -right-2"
+          isOpen ? "sm:translate-x-1/2 right-0 " : "translate-x-full -right-2"
         } z-50 border-black bg-yellow-darker border-2 rounded-full`}>
         <button
           onClick={setIsOpen}
