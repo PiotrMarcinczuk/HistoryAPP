@@ -1,5 +1,5 @@
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
-import vector from "../../public/images/vector.png";
+import vector from "../../public/icons/vector.png";
 
 export default function LegendBar() {
   const { isLegendOpen, setIsLegendOpen } = useLegendIsOpenContext() as {

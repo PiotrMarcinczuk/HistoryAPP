@@ -1,11 +1,9 @@
-import { useContext, useState } from "react";
-import NavButton from "./NavButton";
 import WarTitle from "./WarTitle";
 import logo from "../../public/images/logo.png";
-import copyright from "../../public/images/copyright.png";
-import polandFlag from "../../public/images/poland-ball.png";
-import battleIcon from "../../public/images/battle-icon.png";
-import vector from "../../public/images/vector.png";
+import copyright from "../../public/icons/copyright.png";
+import polandFlag from "../../public/icons/poland-ball.png";
+import battleIcon from "../../public/icons/battle-icon.png";
+import vector from "../../public/icons/vector.png";
 import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
 export default function Navigation() {
   const context = useNavigationIsOpenContext();

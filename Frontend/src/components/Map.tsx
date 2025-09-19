@@ -1,13 +1,17 @@
 import "leaflet/dist/leaflet.css";
-import openLegend from "../../public/images/open-legend.png";
+import openLegend from "../../public/icons/open-legend.png";
 import { useEffect } from "react";
 import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
-import { MapContainer } from "react-leaflet";
-import { TileLayer } from "react-leaflet";
-import { Marker } from "react-leaflet";
-import { Popup } from "react-leaflet";
-import { useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
+import MapElements from "../mapComponents/MapElements";
 
 export function ResizeHandler({ deps }: { deps: any[] }) {
   const map = useMap();
@@ -24,6 +28,12 @@ export default function Map() {
   const NavContext = useNavigationIsOpenContext();
   const LegendContext = useLegendIsOpenContext();
   const zoom = 8; // API
+  const {
+    createTextIconPL,
+    createTextIconPLwin,
+    createTextIconENEMY,
+    createTextIconENEMYwin,
+  } = MapElements();
   const { isNavOpen } = NavContext as { isNavOpen: boolean };
   const { setIsLegendOpen } = LegendContext as {
     setIsLegendOpen: () => void;
@@ -43,6 +53,7 @@ export default function Map() {
       <MapContainer
         center={[53.5948, 19.568]}
         zoom={zoom}
+        zoomControl={false}
         scrollWheelZoom={false}
         className="w-full h-full z-30 rounded-sm">
         <ResizeHandler deps={[isNavOpen]} />
@@ -50,15 +61,23 @@ export default function Map() {
           attribution='"Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"'
           url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
         />
-        <Marker position={[51.505, -0.09]}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
+        <Marker
+          position={[53.48733815530108, 20.09374477186679]} /* API */
+          icon={createTextIconPL("1")}></Marker>{" "}
+        {/* API */}
+        <Marker
+          position={[54.03623538101871, 19.025919513229628]}
+          icon={createTextIconPLwin("2")}></Marker>
+        <Marker
+          position={[52.83239932456155, 19.043765385859906]}
+          icon={createTextIconENEMY("3")}></Marker>
+        <Marker
+          position={[54.13324499637606, 19.878726302726086]}
+          icon={createTextIconENEMYwin("4")}></Marker>
       </MapContainer>
       <button
         onClick={setIsLegendOpen}
-        className="z-50 absolute bottom-0 right-0 px-3 pt-4 pb-6 bg-[#DAD7D7]/20 rounded-tl-sm hover:cursor-pointer">
+        className="z-50 absolute bottom-0 right-0 px-3 pt-4 pb-6 ease-in duration-200 bg-[#DAD7D7]/20 hover:bg-[#DAD7D7]/50 rounded-tl-sm hover:cursor-pointer">
         <img src={openLegend} alt="open legend" />
       </button>
     </main>
