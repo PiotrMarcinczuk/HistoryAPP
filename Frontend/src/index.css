@@ -8,6 +8,8 @@
 html,
 body {
   background-color: #91785d;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .war-title-shadow {

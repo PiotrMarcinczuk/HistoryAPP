@@ -6,18 +6,18 @@ import copyright from "../../public/images/copyright.png";
 import polandFlag from "../../public/images/poland-ball.png";
 import battleIcon from "../../public/images/battle-icon.png";
 import vector from "../../public/images/vector.png";
-import { useOpenContext } from "../providers/openProvider";
+import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
 export default function Navigation() {
-  const context = useOpenContext();
-  const { isOpen, setIsOpen } = context as {
-    isOpen: boolean;
-    setIsOpen: () => void;
+  const context = useNavigationIsOpenContext();
+  const { isNavOpen, setIsNavOpen } = context as {
+    isNavOpen: boolean;
+    setIsNavOpen: () => void;
   };
 
   return (
     <nav
       className={`ease-in duration-200 ${
-        isOpen ? "translate-x-0" : "-translate-x-full"
+        isNavOpen ? "translate-x-0" : "-translate-x-full"
       } max-w-[400px] h-full absolute text-text-primary z-50`}>
       <section className="relative w-[400px] h-full flex flex-col">
         <div className="absolute inset-0 bg-[url('/images/nav-bg.png')] bg-cover bg-center"></div>
@@ -59,15 +59,17 @@ export default function Navigation() {
       </section>
       <div
         className={`absolute top-1/2 ease-in duration-200 ${
-          isOpen ? "sm:translate-x-1/2 right-0 " : "translate-x-full -right-2"
-        } z-50 border-black bg-yellow-darker border-2 rounded-full`}>
+          isNavOpen
+            ? "sm:translate-x-1/2 right-0 "
+            : "translate-x-full -right-2"
+        } z-50 border-black bg-yellow-darker/80 border-1 rounded-full`}>
         <button
-          onClick={setIsOpen}
+          onClick={setIsNavOpen}
           className="w-18 h-18 flex justify-center items-center hover:cursor-pointer">
           <img
             src={vector}
             alt="navbar button"
-            className={`ease-in duration-200 ${isOpen ? "" : "rotate-180"}`}
+            className={`ease-in duration-200 ${isNavOpen ? "" : "rotate-180"}`}
           />
         </button>
       </div>
