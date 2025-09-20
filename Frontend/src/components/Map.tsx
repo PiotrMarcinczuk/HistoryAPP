@@ -44,7 +44,7 @@ export default function Map() {
   };
 
   return (
-    <main
+    <section
       className={`${
         isNavOpen ? "xl:w-[75%] w-full" : "w-full"
       } ease-in duration-200 h-[95%] m-2 z-10 flex flex-col justify-center items-center relative`}>
@@ -55,7 +55,7 @@ export default function Map() {
         {/* API */}
       </h1>
       <MapContainer
-        center={[53.5948, 19.568]}
+        center={[53.5948, 19.568]} /* API */
         zoom={zoom}
         zoomControl={false}
         scrollWheelZoom={false}
@@ -87,6 +87,6 @@ export default function Map() {
         className="z-40 absolute bottom-0 right-0 px-3 pt-4 pb-6 ease-in duration-200 bg-[#DAD7D7]/20 hover:bg-[#DAD7D7]/50 rounded-tl-sm hover:cursor-pointer">
         <img src={openLegend} alt="open legend" />
       </button>
-    </main>
+    </section>
   );
 }
