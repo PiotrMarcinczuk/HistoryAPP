@@ -1,4 +1,6 @@
 import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import { useState } from "react";
 import openLegend from "../../public/icons/open-legend.png";
 import { useEffect } from "react";
 import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
@@ -11,6 +13,7 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
+import CustomPopup from "./CustomPopup";
 import MapElements from "../mapComponents/MapElements";
 
 export function ResizeHandler({ deps }: { deps: any[] }) {
@@ -27,6 +30,7 @@ export function ResizeHandler({ deps }: { deps: any[] }) {
 export default function Map() {
   const NavContext = useNavigationIsOpenContext();
   const LegendContext = useLegendIsOpenContext();
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const zoom = 8; // API
   const {
     createTextIconPL,
@@ -63,7 +67,9 @@ export default function Map() {
         />
         <Marker
           position={[53.48733815530108, 20.09374477186679]} /* API */
-          icon={createTextIconPL("1")}></Marker>{" "}
+          icon={createTextIconPL("1")}
+          eventHandlers={{ click: () => setIsPopupOpen(true) }} // API
+        ></Marker>{" "}
         {/* API */}
         <Marker
           position={[54.03623538101871, 19.025919513229628]}
@@ -75,9 +81,10 @@ export default function Map() {
           position={[54.13324499637606, 19.878726302726086]}
           icon={createTextIconENEMYwin("4")}></Marker>
       </MapContainer>
+      {isPopupOpen && <CustomPopup onClose={() => setIsPopupOpen(false)} />}
       <button
         onClick={setIsLegendOpen}
-        className="z-50 absolute bottom-0 right-0 px-3 pt-4 pb-6 ease-in duration-200 bg-[#DAD7D7]/20 hover:bg-[#DAD7D7]/50 rounded-tl-sm hover:cursor-pointer">
+        className="z-40 absolute bottom-0 right-0 px-3 pt-4 pb-6 ease-in duration-200 bg-[#DAD7D7]/20 hover:bg-[#DAD7D7]/50 rounded-tl-sm hover:cursor-pointer">
         <img src={openLegend} alt="open legend" />
       </button>
     </main>

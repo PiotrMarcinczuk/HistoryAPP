@@ -16,7 +16,9 @@ export default function Navigation() {
     <nav
       className={`ease-in duration-200 ${
         isNavOpen ? "translate-x-0" : "-translate-x-full"
-      } max-w-[400px] h-full absolute text-text-primary z-50`}>
+      } max-w-[400px] h-full absolute text-text-primary z-20`}>
+      {" "}
+      {/* z-40 to be over map*/}
       <section className="relative w-[400px] h-full flex flex-col">
         <div className="absolute inset-0 bg-[url('/images/nav-bg.png')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-orange-darker/80"></div>
@@ -60,7 +62,7 @@ export default function Navigation() {
           isNavOpen
             ? "sm:translate-x-1/2 right-0 "
             : "translate-x-full -right-2"
-        } z-50 border-black bg-yellow-darker/80 border-1 rounded-full`}>
+        } z-10 border-black bg-yellow-darker/80 border-1 rounded-full`}>
         <button
           onClick={setIsNavOpen}
           className="w-18 h-18 flex justify-center items-center hover:cursor-pointer">
