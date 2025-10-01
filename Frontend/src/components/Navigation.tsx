@@ -16,12 +16,12 @@ export default function Navigation() {
     <nav
       className={`ease-in duration-200 ${
         isNavOpen ? "translate-x-0" : "-translate-x-full"
-      } max-w-[400px] h-full absolute text-text-primary z-20`}>
+      } w-full max-w-[400px] h-full fixed text-text-primary z-20`}>
       {" "}
       {/* z-40 to be over map*/}
-      <section className="relative w-[400px] h-full flex flex-col">
-        <div className="absolute inset-0 bg-[url('/images/nav-bg.png')] bg-cover bg-center"></div>
-        <div className="absolute inset-0 bg-orange-darker/80"></div>
+      <section className=" w-full h-full flex flex-col overflow-y-auto overflow-x-hidden">
+        <div className="fixed inset-0 bg-[url('/images/nav-bg.png')] bg-cover bg-center"></div>
+        <div className="fixed inset-0 bg-orange-darker/80"></div>
 
         <div className="relative z-10 mx-auto my-10">
           <img src={logo} alt="logo" />
@@ -37,25 +37,37 @@ export default function Navigation() {
           <hr className="border-yellow-normal flex-1 ml-2" />
         </div>
 
-        <div className="mx-auto z-10 text-3x-large mt-10">1400 - 1500</div>
-        <ul className="flex flex-col w-full z-10 gap-1">
+        <div className="mx-auto z-10 text-3x-large xs:mt-10">1400 - 1500</div>
+        <ul className="relative flex flex-col w-full h-full z-10 gap-1">
           <WarTitle title="Wielka Wojna z zakonem" isActive={true} />{" "}
           {/* API */}
           <WarTitle title="Wojna golubska" isActive={false} /> {/* API */}
           <WarTitle title="Wojna głodowa" isActive={false} /> {/* API */}
+          <li className="mt-4"></li> {/* spacer for mobile rotation */}
+          <li className="absolute bottom-0 left-1/2 -translate-x-1/2 text-nowrap">
+            <div className="flex justify-center items-center gap-1">
+              <img src={copyright} alt="copyright" />
+              <span className="text-extra-small">Code by</span>
+              <a
+                className="text-small text-yellow-normal"
+                href="https://piotr-marcinczuk.pl">
+                Piotr Marcińczuk
+              </a>
+            </div>
+          </li>
         </ul>
 
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-nowrap">
+        {/* <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-nowrap">
           <div className="flex justify-center items-center gap-1">
             <img src={copyright} alt="copyright" />
             <span className="text-extra-small">Code by</span>
             <a
               className="text-small text-yellow-normal"
-              href="https://piotr-marcinczuk.pl/">
+              href="https://piotr-marcinczuk.pl">
               Piotr Marcińczuk
             </a>
           </div>
-        </div>
+        </div> */}
       </section>
       <div
         className={`absolute top-1/2 ease-in duration-200 ${

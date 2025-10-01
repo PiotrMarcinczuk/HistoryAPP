@@ -7,9 +7,15 @@
 
 html,
 body {
-  background-color: #91785d;
+  background-color: black;
   overflow-x: hidden;
   overflow-y: hidden;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  background-color: #91785d;
 }
 
 .war-title-shadow {
@@ -18,7 +24,6 @@ body {
 
 @theme {
   --spacing-400px: 400px;
-
   --color-orange-darker: #352314;
   --color-orange-dark: #53381f;
   --color-orange-normal: #7d542e;
@@ -39,4 +44,6 @@ body {
   --text-2x-large: 2.438rem;
   --text-3x-large: 3.062rem;
   --text-4x-large: 3.812rem;
+
+  --breakpoint-xs: 460px;
 }

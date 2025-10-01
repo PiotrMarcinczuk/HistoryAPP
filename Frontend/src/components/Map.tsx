@@ -47,8 +47,8 @@ export default function Map() {
     <section
       className={`${
         isNavOpen ? "xl:w-[75%] w-full" : "w-full"
-      } ease-in duration-200 h-[95%] m-2 z-10 flex flex-col justify-center items-center relative`}>
-      <h1 className="-mt-8 px-24 z-40 translate-y-1/2 rounded-sm text-bigger-base sm:text-extra-large lg:text-2x-large text-center font-medium text-text-primary bg-orange-dark/40 text-nowrap">
+      } ease-in duration-200 h-[90%] xs:h-[90%] m-2 z-10 flex flex-col justify-center items-center relative`}>
+      <h1 className="xs:-mt-2 px-12 z-40 absolute top-0 rounded-sm text-bigger-base sm:text-extra-large lg:text-2x-large text-center font-medium text-text-primary bg-orange-dark/40 text-nowrap">
         Wielka Wojna z Zakonem {/* API */}
         <br className="sm:hidden" />
         <span> 1409 - 1411</span>

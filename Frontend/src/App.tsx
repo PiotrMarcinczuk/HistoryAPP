@@ -9,7 +9,7 @@ function App() {
     <NavigationIsOpenProvider value={true}>
       <LegendIsOpenProvider value={false}>
         <Navigation />
-        <main className="w-full h-screen flex justify-end items-end">
+        <main className="w-full h-full flex items-center xl:items-end xl:justify-end">
           <Map />
         </main>
         <LegendBar />

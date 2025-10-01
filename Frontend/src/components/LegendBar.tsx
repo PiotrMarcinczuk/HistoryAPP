@@ -9,10 +9,10 @@ export default function LegendBar() {
 
   return (
     <section
-      className={`max-w-[400px] z-50 h-full absolute top-0 right-0 ${
+      className={`max-w-[400px] w-full z-50 h-full fixed top-0 right-0 ${
         isLegendOpen ? "translate-x-0" : "translate-x-full"
       } ease-in duration-200`}>
-      <div className="w-[400px] flex items-center justify-center p-4">
+      <div className="flex items-center justify-center p-4">
         <div className="absolute inset-0 bg-[url('/images/legend-bg.jpg')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-orange-darker/80"></div>
 
