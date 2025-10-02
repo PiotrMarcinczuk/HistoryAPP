@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
 import { useWarContext } from "../providers/WarProvider";
+import { useEventsContext } from "../providers/EventsProvider";
 import {
   MapContainer,
   TileLayer,
@@ -28,21 +29,46 @@ export function ResizeHandler({ deps }: { deps: any[] }) {
   return null;
 }
 
+function MapUpdater({ zoom, center }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (zoom !== undefined && map.getZoom() !== zoom) map.setZoom(zoom);
+  }, [zoom, map]);
+
+  useEffect(() => {
+    if (center !== undefined) map.setView(center);
+  }, [center, map]);
+
+  useEffect(() => {
+    map.invalidateSize(); // refresh map layout if container changed
+  });
+
+  return null;
+}
+
 export default function Map() {
   const navContext = useNavigationIsOpenContext();
   const legendContext = useLegendIsOpenContext();
   const warContext = useWarContext();
+  const eventsContext = useEventsContext();
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const zoom = 8; // API
-  const warTitle = warContext.currentWar?.[0].Title;
-  const warLength = warContext.currentWar?.[0].WarLength;
+
+  const [currentWar, setCurrentWar] = useState<any>(null);
+  useEffect(() => {
+    setCurrentWar(warContext?.currentWar?.[0]);
+  }, [warContext]);
+
   const {
     createTextIconPL,
     createTextIconPLwin,
     createTextIconENEMY,
     createTextIconENEMYwin,
   } = MapElements();
+
   const { isNavOpen } = navContext as { isNavOpen: boolean };
+
   const { setIsLegendOpen } = legendContext as {
     setIsLegendOpen: () => void;
   };
@@ -53,16 +79,20 @@ export default function Map() {
         isNavOpen ? "xl:w-[75%] w-full" : "w-full"
       } ease-in duration-200 h-[90%] xs:h-[90%] m-2 z-10 flex flex-col justify-center items-center relative`}>
       <h1 className="xs:-mt-2 px-12 z-40 absolute top-0 rounded-sm text-bigger-base sm:text-extra-large lg:text-2x-large text-center font-medium text-text-primary bg-orange-dark/40 text-nowrap">
-        {warTitle}
-        <br className="sm:hidden" /> {warLength}
-        {/* API */}
+        {currentWar?.Title}
+        <br className="sm:hidden" /> {currentWar?.WarLength}
       </h1>
+
       <MapContainer
         center={[53.5948, 19.568]} /* API */
-        zoom={zoom}
+        zoom={currentWar?.MapZoom}
         zoomControl={false}
         scrollWheelZoom={false}
         className="w-full h-full z-30 rounded-sm">
+        <MapUpdater
+          zoom={currentWar?.MapZoom}
+          center={currentWar && [53.5948, 19.568]}
+        />
         <ResizeHandler deps={[isNavOpen]} />
         <TileLayer
           attribution='"Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"'

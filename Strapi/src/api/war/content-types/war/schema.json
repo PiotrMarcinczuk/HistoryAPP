@@ -21,6 +21,9 @@
     },
     "WarLength": {
       "type": "string"
+    },
+    "MapZoom": {
+      "type": "decimal"
     }
   }
 }

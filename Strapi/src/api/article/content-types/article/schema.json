@@ -43,9 +43,6 @@
     "Legend_description": {
       "type": "blocks"
     },
-    "Zoom": {
-      "type": "decimal"
-    },
     "Images_description": {
       "type": "blocks"
     },
