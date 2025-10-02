@@ -6,13 +6,13 @@ import polandFlag from "../../public/icons/poland-ball.png";
 import battleIcon from "../../public/icons/battle-icon.png";
 import vector from "../../public/icons/vector.png";
 import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
-import { useWarsContext } from "../providers/WarProvider";
+import { useWarContext } from "../providers/WarProvider";
 
 export default function Navigation() {
   const context = useNavigationIsOpenContext();
-  const warsContext = useWarsContext();
+  const warContext = useWarContext();
 
-  const { wars } = warsContext as { wars: any };
+  const { wars } = warContext as { wars: any };
   const { isNavOpen, setIsNavOpen } = context as {
     isNavOpen: boolean;
     setIsNavOpen: () => void;

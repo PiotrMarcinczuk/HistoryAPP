@@ -45,6 +45,18 @@
     },
     "Zoom": {
       "type": "decimal"
+    },
+    "Images_description": {
+      "type": "blocks"
+    },
+    "MarkerType": {
+      "type": "enumeration",
+      "enum": [
+        "PL",
+        "EN",
+        "PLW",
+        "ENW"
+      ]
     }
   }
 }

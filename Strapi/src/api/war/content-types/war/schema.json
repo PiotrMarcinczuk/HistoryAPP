@@ -18,6 +18,9 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::article.article"
+    },
+    "WarLength": {
+      "type": "string"
     }
   }
 }

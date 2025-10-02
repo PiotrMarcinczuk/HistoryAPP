@@ -392,6 +392,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    Images_description: Schema.Attribute.Blocks;
     Legend_description: Schema.Attribute.Blocks;
     Legend_images: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
@@ -403,6 +404,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       'api::article.article'
     > &
       Schema.Attribute.Private;
+    MarkerType: Schema.Attribute.Enumeration<['PL', 'EN', 'PLW', 'ENW']>;
     PositionOnMapX: Schema.Attribute.Decimal;
     PositionOnMapY: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
@@ -436,6 +438,7 @@ export interface ApiWarWar extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     war_details: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
+    WarLength: Schema.Attribute.String;
   };
 }
 

@@ -5,6 +5,7 @@ import openLegend from "../../public/icons/open-legend.png";
 import { useEffect } from "react";
 import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
+import { useWarContext } from "../providers/WarProvider";
 import {
   MapContainer,
   TileLayer,
@@ -28,19 +29,21 @@ export function ResizeHandler({ deps }: { deps: any[] }) {
 }
 
 export default function Map() {
-  const NavContext = useNavigationIsOpenContext();
-  const LegendContext = useLegendIsOpenContext();
+  const navContext = useNavigationIsOpenContext();
+  const legendContext = useLegendIsOpenContext();
+  const warContext = useWarContext();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const zoom = 8; // API
-
+  const warTitle = warContext.currentWar?.[0].Title;
+  const warLength = warContext.currentWar?.[0].WarLength;
   const {
     createTextIconPL,
     createTextIconPLwin,
     createTextIconENEMY,
     createTextIconENEMYwin,
   } = MapElements();
-  const { isNavOpen } = NavContext as { isNavOpen: boolean };
-  const { setIsLegendOpen } = LegendContext as {
+  const { isNavOpen } = navContext as { isNavOpen: boolean };
+  const { setIsLegendOpen } = legendContext as {
     setIsLegendOpen: () => void;
   };
 
@@ -50,9 +53,8 @@ export default function Map() {
         isNavOpen ? "xl:w-[75%] w-full" : "w-full"
       } ease-in duration-200 h-[90%] xs:h-[90%] m-2 z-10 flex flex-col justify-center items-center relative`}>
       <h1 className="xs:-mt-2 px-12 z-40 absolute top-0 rounded-sm text-bigger-base sm:text-extra-large lg:text-2x-large text-center font-medium text-text-primary bg-orange-dark/40 text-nowrap">
-        Wielka Wojna z Zakonem {/* API */}
-        <br className="sm:hidden" />
-        <span> 1409 - 1411</span>
+        {warTitle}
+        <br className="sm:hidden" /> {warLength}
         {/* API */}
       </h1>
       <MapContainer

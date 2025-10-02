@@ -12,7 +12,8 @@ export default function WarProvider({ children, value }) {
   const [wars, setWars] = useState<any>([]);
   const [currentWar, setCurrentWar] = useState<any>(null);
 
-  const onClickWar = (war: any) => {
+  const onClickWar = (clickedWar: any) => {
+    const war = wars.data.filter((war) => war.Title === clickedWar.innerText);
     setCurrentWar(war);
   };
 
@@ -25,16 +26,16 @@ export default function WarProvider({ children, value }) {
   }, []);
 
   return (
-    <WarsContext value={{ wars, onClickWar, currentWar }}>
+    <WarsContext value={{ wars, setCurrentWar: onClickWar, currentWar }}>
       {children}
     </WarsContext>
   );
 }
 
-export function useWarsContext() {
+export function useWarContext() {
   const context = useContext(WarsContext);
   if (context === undefined) {
-    throw new Error("useWarsContext must be used within an WarsContext");
+    throw new Error("useWarContext must be used within an WarContext");
   }
   return context;
 }
