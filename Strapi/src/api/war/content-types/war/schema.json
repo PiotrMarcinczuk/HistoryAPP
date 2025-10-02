@@ -24,6 +24,9 @@
     },
     "MapZoom": {
       "type": "decimal"
+    },
+    "Center": {
+      "type": "json"
     }
   }
 }

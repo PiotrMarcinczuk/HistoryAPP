@@ -1,6 +1,6 @@
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import openLegend from "../../public/icons/open-legend.png";
 import { useEffect } from "react";
 import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
@@ -33,16 +33,22 @@ function MapUpdater({ zoom, center }) {
   const map = useMap();
 
   useEffect(() => {
-    if (zoom !== undefined && map.getZoom() !== zoom) map.setZoom(zoom);
+    if (zoom !== undefined && map.getZoom() !== zoom) {
+      map.setZoom(zoom);
+    }
   }, [zoom, map]);
 
   useEffect(() => {
-    if (center !== undefined) map.setView(center);
+    console;
+    if (center !== undefined) {
+      map.setView(center);
+    }
   }, [center, map]);
 
   useEffect(() => {
-    map.invalidateSize(); // refresh map layout if container changed
-  });
+    // only invalidate size once, when map or center/zoom changes
+    map.invalidateSize();
+  }, [map]);
 
   return null;
 }
@@ -51,14 +57,12 @@ export default function Map() {
   const navContext = useNavigationIsOpenContext();
   const legendContext = useLegendIsOpenContext();
   const warContext = useWarContext();
+  const { currentWar } = warContext as { currentWar: any };
+  const curWar = currentWar?.[0];
+
   const eventsContext = useEventsContext();
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  const [currentWar, setCurrentWar] = useState<any>(null);
-  useEffect(() => {
-    setCurrentWar(warContext?.currentWar?.[0]);
-  }, [warContext]);
 
   const {
     createTextIconPL,
@@ -79,41 +83,42 @@ export default function Map() {
         isNavOpen ? "xl:w-[75%] w-full" : "w-full"
       } ease-in duration-200 h-[90%] xs:h-[90%] m-2 z-10 flex flex-col justify-center items-center relative`}>
       <h1 className="xs:-mt-2 px-12 z-40 absolute top-0 rounded-sm text-bigger-base sm:text-extra-large lg:text-2x-large text-center font-medium text-text-primary bg-orange-dark/40 text-nowrap">
-        {currentWar?.Title}
-        <br className="sm:hidden" /> {currentWar?.WarLength}
+        {curWar?.Title}
+        <br className="sm:hidden" /> {curWar?.WarLength}
       </h1>
-
-      <MapContainer
-        center={[53.5948, 19.568]} /* API */
-        zoom={currentWar?.MapZoom}
-        zoomControl={false}
-        scrollWheelZoom={false}
-        className="w-full h-full z-30 rounded-sm">
-        <MapUpdater
-          zoom={currentWar?.MapZoom}
-          center={currentWar && [53.5948, 19.568]}
-        />
-        <ResizeHandler deps={[isNavOpen]} />
-        <TileLayer
-          attribution='"Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"'
-          url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
-        />
-        <Marker
-          position={[53.48733815530108, 20.09374477186679]} /* API */
-          icon={createTextIconPL("1")}
-          eventHandlers={{ click: () => setIsPopupOpen(true) }} // API
-        ></Marker>{" "}
-        {/* API */}
-        <Marker
-          position={[54.03623538101871, 19.025919513229628]}
-          icon={createTextIconPLwin("2")}></Marker>
-        <Marker
-          position={[52.83239932456155, 19.043765385859906]}
-          icon={createTextIconENEMY("3")}></Marker>
-        <Marker
-          position={[54.13324499637606, 19.878726302726086]}
-          icon={createTextIconENEMYwin("4")}></Marker>
-      </MapContainer>
+      {curWar && (
+        <MapContainer
+          center={[curWar?.Center?.lat, curWar?.Center?.lng]}
+          zoom={curWar.MapZoom}
+          zoomControl={false}
+          scrollWheelZoom={false}
+          className="w-full h-full z-30 rounded-sm">
+          <MapUpdater
+            zoom={curWar?.MapZoom}
+            center={[curWar.Center?.lat, curWar.Center?.lng]}
+          />
+          <ResizeHandler deps={[isNavOpen]} />
+          <TileLayer
+            attribution='"Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"'
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+          />
+          <Marker
+            position={[53.48733815530108, 20.09374477186679]} /* API */
+            icon={createTextIconPL("1")}
+            eventHandlers={{ click: () => setIsPopupOpen(true) }} // API
+          ></Marker>{" "}
+          {/* API */}
+          <Marker
+            position={[54.03623538101871, 19.025919513229628]}
+            icon={createTextIconPLwin("2")}></Marker>
+          <Marker
+            position={[52.83239932456155, 19.043765385859906]}
+            icon={createTextIconENEMY("3")}></Marker>
+          <Marker
+            position={[54.13324499637606, 19.878726302726086]}
+            icon={createTextIconENEMYwin("4")}></Marker>
+        </MapContainer>
+      )}
       {isPopupOpen && <CustomPopup onClose={() => setIsPopupOpen(false)} />}
       <button
         onClick={setIsLegendOpen}

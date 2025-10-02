@@ -8,7 +8,7 @@ const axiosInstance = axios.create({
 export const fetchWars = async () => {
   try {
     const response = await axiosInstance.get(`/wars`);
-    return response.data;
+    return response.data.data;
   } catch (error) {
     return { error: "Error fetching wars data" };
   }

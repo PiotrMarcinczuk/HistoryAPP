@@ -42,14 +42,11 @@ export default function Navigation() {
           </div>
           <hr className="border-yellow-normal flex-1 ml-2" />
         </div>
-
         <div className="mx-auto z-10 text-3x-large xs:mt-10">1400 - 1500</div>
         <ul className="relative flex flex-col w-full h-full z-10 gap-1">
           {/* ERROR WHEN WARS IS EMPTY */}
-          {wars.data &&
-            wars.data.map((war: any) => (
-              <WarTitle key={war.id} title={war.Title} isActive={false} />
-            ))}
+          {wars &&
+            wars.map((war: any) => <WarTitle key={war.id} title={war.Title} />)}
           <li className="mt-4"></li> {/* spacer for mobile rotation */}
           <li className="absolute bottom-0 left-1/2 -translate-x-1/2 text-nowrap">
             <div className="flex justify-center items-center gap-1">

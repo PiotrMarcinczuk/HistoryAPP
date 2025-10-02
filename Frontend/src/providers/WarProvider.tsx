@@ -8,19 +8,22 @@ import {
 import { fetchWars } from "../api/fetchData";
 export const WarsContext = createContext<{} | []>([]);
 
-export default function WarProvider({ children, value }) {
+export default function WarProvider({ children }) {
   const [wars, setWars] = useState<any>([]);
   const [currentWar, setCurrentWar] = useState<any>(null);
 
   const onClickWar = (clickedWar: any) => {
-    const war = wars.data.filter((war) => war.Title === clickedWar.innerText);
+    const war = wars.filter((war) => war.Title === clickedWar.innerText);
     setCurrentWar(war);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const warsData = await fetchWars();
-      if (warsData.data) setWars(warsData);
+      if (warsData) {
+        setWars(warsData);
+        setCurrentWar([warsData[0]]);
+      }
     };
     fetchData();
   }, []);
