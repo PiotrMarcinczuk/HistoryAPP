@@ -11,15 +11,9 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
-      "type": "string"
-    },
-    "Desciption1": {
-      "type": "text"
-    },
-    "Img1": {
+    "Images": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "allowedTypes": [
         "images",
         "files",
@@ -27,18 +21,30 @@
         "audios"
       ]
     },
-    "Desciption2": {
-      "type": "text"
-    },
-    "Img2": {
+    "Legend_images": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
       ]
+    },
+    "PositionOnMapX": {
+      "type": "decimal"
+    },
+    "PositionOnMapY": {
+      "type": "decimal"
+    },
+    "Description": {
+      "type": "blocks"
+    },
+    "Legend_description": {
+      "type": "blocks"
+    },
+    "Zoom": {
+      "type": "decimal"
     }
   }
 }

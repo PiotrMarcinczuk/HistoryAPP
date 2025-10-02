@@ -1,3 +1,4 @@
+import { useState } from "react";
 import WarTitle from "./WarTitle";
 import logo from "../../public/images/logo.png";
 import copyright from "../../public/icons/copyright.png";
@@ -5,8 +6,13 @@ import polandFlag from "../../public/icons/poland-ball.png";
 import battleIcon from "../../public/icons/battle-icon.png";
 import vector from "../../public/icons/vector.png";
 import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
+import { useWarsContext } from "../providers/WarProvider";
+
 export default function Navigation() {
   const context = useNavigationIsOpenContext();
+  const warsContext = useWarsContext();
+
+  const { wars } = warsContext as { wars: any };
   const { isNavOpen, setIsNavOpen } = context as {
     isNavOpen: boolean;
     setIsNavOpen: () => void;
@@ -39,10 +45,11 @@ export default function Navigation() {
 
         <div className="mx-auto z-10 text-3x-large xs:mt-10">1400 - 1500</div>
         <ul className="relative flex flex-col w-full h-full z-10 gap-1">
-          <WarTitle title="Wielka Wojna z zakonem" isActive={true} />{" "}
-          {/* API */}
-          <WarTitle title="Wojna golubska" isActive={false} /> {/* API */}
-          <WarTitle title="Wojna głodowa" isActive={false} /> {/* API */}
+          {/* ERROR WHEN WARS IS EMPTY */}
+          {wars.data &&
+            wars.data.map((war: any) => (
+              <WarTitle key={war.id} title={war.Title} isActive={false} />
+            ))}
           <li className="mt-4"></li> {/* spacer for mobile rotation */}
           <li className="absolute bottom-0 left-1/2 -translate-x-1/2 text-nowrap">
             <div className="flex justify-center items-center gap-1">

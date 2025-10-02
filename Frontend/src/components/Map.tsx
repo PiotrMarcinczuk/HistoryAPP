@@ -32,6 +32,7 @@ export default function Map() {
   const LegendContext = useLegendIsOpenContext();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const zoom = 8; // API
+
   const {
     createTextIconPL,
     createTextIconPLwin,

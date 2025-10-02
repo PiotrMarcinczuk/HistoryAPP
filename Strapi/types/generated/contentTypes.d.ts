@@ -387,21 +387,55 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Desciption1: Schema.Attribute.Text;
-    Desciption2: Schema.Attribute.Text;
-    Img1: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    Img2: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    Description: Schema.Attribute.Blocks;
+    Images: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    Legend_description: Schema.Attribute.Blocks;
+    Legend_images: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::article.article'
     > &
       Schema.Attribute.Private;
+    PositionOnMapX: Schema.Attribute.Decimal;
+    PositionOnMapY: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Zoom: Schema.Attribute.Decimal;
+  };
+}
+
+export interface ApiWarWar extends Struct.CollectionTypeSchema {
+  collectionName: 'wars';
+  info: {
+    displayName: 'War';
+    pluralName: 'wars';
+    singularName: 'war';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::war.war'> &
+      Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     Title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    war_details: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
   };
 }
 
@@ -915,6 +949,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::article.article': ApiArticleArticle;
+      'api::war.war': ApiWarWar;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
