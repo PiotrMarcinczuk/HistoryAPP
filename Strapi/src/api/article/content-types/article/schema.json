@@ -31,6 +31,9 @@
         "audios"
       ]
     },
+    "EventOrder": {
+      "type": "integer"
+    },
     "PositionOnMapX": {
       "type": "decimal"
     },
@@ -54,6 +57,9 @@
         "PLW",
         "ENW"
       ]
+    },
+    "Title": {
+      "type": "string"
     }
   }
 }

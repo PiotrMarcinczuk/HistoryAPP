@@ -388,6 +388,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     Description: Schema.Attribute.Blocks;
+    EventOrder: Schema.Attribute.Integer;
     Images: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -408,6 +409,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     PositionOnMapX: Schema.Attribute.Decimal;
     PositionOnMapY: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
+    Title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -2,8 +2,12 @@ import { createPortal } from "react-dom";
 import img1 from "../../public/images/img1.png";
 import CustomLine from "./CustomLine";
 import { Scrollbar } from "react-scrollbars-custom";
+import { useEventsContext } from "../providers/EventsProvider";
 export default function Popup({ onClose }: { onClose: () => void }) {
-  // const isEven = true;
+  const { currentEvent } = useEventsContext();
+  const curEvent = currentEvent?.[0];
+  const checkIfEven = (index: number) => index % 2 === 0;
+
   return (
     <>
       {createPortal(
@@ -14,7 +18,7 @@ export default function Popup({ onClose }: { onClose: () => void }) {
             <div className="flex flex-col w-full text-text-primary px-3 py-2">
               <div className="flex justify-between  items-center mb-6">
                 <h1 className="text-bigger-base sm:text-2x-large text-semibold">
-                  BITWA POD GRUNWALDEM 1410
+                  {curEvent?.Title}
                 </h1>
                 <button
                   onClick={onClose}
@@ -25,28 +29,51 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                   </div>
                 </button>
               </div>
-              <div
-                className={`flex ${
-                  true ? "flex-col" : "flex-col-reverse"
-                } sm:flex-row -mx-1.5`}>
-                <span className="text-bigger-base md:text-large lg:text-extra-large mx-1.5">
-                  Bitwa pod Grunwaldem miała miejsce 15 lipca 1410 roku i była
-                  jednym z największych starć średniowiecznej Europy. Starły się
-                  w niej wojska Królestwa Polskiego i Wielkiego Księstwa
-                  Litewskiego pod wodzą króla Władysława II Jagiełły oraz
-                  Wielkiego Księcia Litewskiego Witolda z armią Zakonu
-                  Krzyżackiego, dowodzoną przez Wielkiego Mistrza Ulryka von
-                  Jungingena.
-                </span>
-                <div className="flex flex-col items-center min-w-81 mx-1.5 mt-2 sm:mt-0">
+              {curEvent?.Description.map((paragraph, pIndex) => (
+                <>
+                  <div
+                    key={pIndex}
+                    className={`flex flex-col-reverse sm:flex-row ${
+                      checkIfEven(pIndex)
+                        ? "sm:flex-row-reverse"
+                        : "sm:flex-row"
+                    } -mx-1.5`}>
+                    {/* Image + caption */}
+                    <div className="flex flex-col items-center min-w-81 mx-1.5 mt-2 sm:mt-0">
+                      <img src={img1} alt="król" className="w-full" />
+                      <figcaption className="mt-2 text-base md:text-bigger-base text-wrap w-3/4 text-center">
+                        Polski władca na polach Grunwaldu
+                      </figcaption>
+                    </div>
+
+                    {/* Paragraph text */}
+                    <div className="mx-1.5">
+                      {paragraph.children.map(
+                        (child, cIndex) =>
+                          child.text && (
+                            <span
+                              key={cIndex}
+                              className={`text-bigger-base md:text-large lg:text-extra-large ${
+                                child.bold ? "font-bold" : ""
+                              }`}>
+                              {child.text}
+                            </span>
+                          )
+                      )}
+                    </div>
+                  </div>
+                  <CustomLine isEven={checkIfEven(pIndex)} />{" "}
+                </>
+              ))}
+
+              {/* <CustomLine isEven={true} /> 
+               <div className="flex flex-col items-center min-w-81 mx-1.5 mt-2 sm:mt-0">
                   <img src={img1} alt="król" className="w-full" />
                   <figcaption className="mt-2 text-base md:text-bigger-base text-wrap w-3/4 text-center">
                     Polski władca na polach Grunwaldu
                   </figcaption>
-                </div>
-              </div>
-              <CustomLine isEven={true} />
-              <div
+                </div> 
+               <div
                 className={`flex ${
                   false ? "flex-col" : "flex-col-reverse"
                 } sm:flex-row -mx-1.5`}>
@@ -86,7 +113,7 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                     Polski władca na polach Grunwaldu
                   </figcaption>
                 </div>
-              </div>
+              </div>  */}
             </div>
           </Scrollbar>
         </section>,

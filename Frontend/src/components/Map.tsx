@@ -1,5 +1,5 @@
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import L, { icon } from "leaflet";
 import { useState, useMemo } from "react";
 import openLegend from "../../public/icons/open-legend.png";
 import { useEffect } from "react";
@@ -29,7 +29,7 @@ export function ResizeHandler({ deps }: { deps: any[] }) {
   return null;
 }
 
-function MapUpdater({ zoom, center }) {
+function MapUpdater({ zoom, center, events }: any) {
   const map = useMap();
 
   useEffect(() => {
@@ -39,7 +39,6 @@ function MapUpdater({ zoom, center }) {
   }, [zoom, map]);
 
   useEffect(() => {
-    console;
     if (center !== undefined) {
       map.setView(center);
     }
@@ -48,7 +47,7 @@ function MapUpdater({ zoom, center }) {
   useEffect(() => {
     // only invalidate size once, when map or center/zoom changes
     map.invalidateSize();
-  }, [map]);
+  }, [map, events]);
 
   return null;
 }
@@ -62,14 +61,14 @@ export default function Map() {
 
   const eventsContext = useEventsContext();
 
+  const { events, setCurrentEvent } = eventsContext as {
+    events: any;
+    setCurrentEvent: (event: any) => void;
+  };
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const {
-    createTextIconPL,
-    createTextIconPLwin,
-    createTextIconENEMY,
-    createTextIconENEMYwin,
-  } = MapElements();
+  const { setMarkerType } = MapElements();
 
   const { isNavOpen } = navContext as { isNavOpen: boolean };
 
@@ -96,18 +95,44 @@ export default function Map() {
           <MapUpdater
             zoom={curWar?.MapZoom}
             center={[curWar.Center?.lat, curWar.Center?.lng]}
+            events={events}
           />
           <ResizeHandler deps={[isNavOpen]} />
           <TileLayer
             attribution='"Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"'
             url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
           />
-          <Marker
-            position={[53.48733815530108, 20.09374477186679]} /* API */
+          {events &&
+            events
+              .filter(
+                (event) =>
+                  event.PositionOnMapX !== undefined &&
+                  event.PositionOnMapY !== undefined
+              )
+              .map((event) => {
+                return (
+                  <Marker
+                    key={event.id}
+                    position={[
+                      parseFloat(event.PositionOnMapX),
+                      parseFloat(event.PositionOnMapY),
+                    ]}
+                    eventHandlers={{
+                      click: () => {
+                        setIsPopupOpen(true);
+                        setCurrentEvent(event);
+                      },
+                    }}
+                    icon={setMarkerType(event.MarkerType)(event.EventOrder)}
+                  />
+                );
+              })}
+
+          {/* <Marker
+            position={[53.48733815530108, 20.09374477186679]} 
             icon={createTextIconPL("1")}
-            eventHandlers={{ click: () => setIsPopupOpen(true) }} // API
+            eventHandlers={{ click: () => setIsPopupOpen(true) }} 
           ></Marker>{" "}
-          {/* API */}
           <Marker
             position={[54.03623538101871, 19.025919513229628]}
             icon={createTextIconPLwin("2")}></Marker>
@@ -116,7 +141,7 @@ export default function Map() {
             icon={createTextIconENEMY("3")}></Marker>
           <Marker
             position={[54.13324499637606, 19.878726302726086]}
-            icon={createTextIconENEMYwin("4")}></Marker>
+            icon={createTextIconENEMYwin("4")}></Marker> */}
         </MapContainer>
       )}
       {isPopupOpen && <CustomPopup onClose={() => setIsPopupOpen(false)} />}

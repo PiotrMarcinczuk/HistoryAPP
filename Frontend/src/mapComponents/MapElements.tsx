@@ -1,6 +1,13 @@
 import L from "leaflet";
 import battleOnMap from "../../public/icons/battle-on-map.svg";
 
+enum MarkerTypes {
+  PL = "PL",
+  EN = "EN",
+  PLW = "PLW", // win
+  ENW = "ENW", // win
+}
+
 export default function MapElements() {
   const createTextIconPL = (text: string) => {
     return new L.DivIcon({
@@ -53,10 +60,22 @@ export default function MapElements() {
     });
   };
 
+  const setMarkerType = (id: string) => {
+    switch (id) {
+      case MarkerTypes.PL:
+        return createTextIconPL;
+      case MarkerTypes.PLW:
+        return createTextIconPLwin;
+      case MarkerTypes.EN:
+        return createTextIconENEMY;
+      case MarkerTypes.ENW:
+        return createTextIconENEMYwin;
+      default:
+        return createTextIconPL;
+    }
+  };
+
   return {
-    createTextIconPL,
-    createTextIconENEMY,
-    createTextIconPLwin,
-    createTextIconENEMYwin,
+    setMarkerType,
   };
 }
