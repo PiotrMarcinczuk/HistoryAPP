@@ -1,10 +1,10 @@
-import { Fragment, useRef } from "react";
+import { Fragment } from "react";
 import { createPortal } from "react-dom";
-import img1 from "../../public/images/img1.png";
 import CustomLine from "./CustomLine";
 import { Scrollbar } from "react-scrollbars-custom";
 import { useEventsContext } from "../providers/EventsProvider";
-import React from "react";
+
+const VITE_API_URL_UPLOADS = import.meta.env.VITE_API_URL_UPLOADS;
 export default function Popup({ onClose }: { onClose: () => void }) {
   const { currentEvent } = useEventsContext();
   const curEvent = currentEvent?.[0];
@@ -32,47 +32,52 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                 </button>
               </div>
 
-              {curEvent?.Description.map((paragraph, pIndex) => (
-                <Fragment key={pIndex}>
-                  {/* items-center possible bug */}
-                  <div
-                    className={`flex flex-col-reverse items-center sm:items-start sm:justify-between sm:flex-row ${
-                      checkIfEven(pIndex)
-                        ? "sm:flex-row-reverse"
-                        : "sm:flex-row"
-                    } -mx-1.5`}>
-                    <div className="flex flex-col items-center max-w-81 min-w-81 mx-1.5 mt-2 sm:mt-0">
-                      <img
-                        src={`http://localhost:1337${curEvent.Images[pIndex].url}`}
-                        alt="król"
-                        className="w-full"
-                      />
-                      <figcaption className="mt-2 text-base md:text-bigger-base text-wrap w-3/4 text-center">
-                        {curEvent.Images[pIndex].caption}
-                      </figcaption>
+              {curEvent &&
+                curEvent?.Description.map((paragraph, pIndex) => (
+                  <Fragment key={pIndex}>
+                    {/* items-center possible bug */}
+                    <div
+                      className={`flex flex-col-reverse items-center sm:items-start sm:justify-between sm:flex-row ${
+                        checkIfEven(pIndex)
+                          ? "sm:flex-row-reverse"
+                          : "sm:flex-row"
+                      } -mx-1.5`}>
+                      <div className="flex flex-col items-center max-w-81 min-w-81 mx-1.5 mt-2 sm:mt-0">
+                        {console.log(curEvent.Images[pIndex])}
+                        {curEvent.Images[pIndex] && (
+                          <img
+                            src={`${VITE_API_URL_UPLOADS}${curEvent.Images[pIndex].url}`}
+                            alt="król"
+                            className="w-full"
+                          />
+                        )}
+                        {curEvent.Images[pIndex] && (
+                          <figcaption className="mt-2 text-base md:text-bigger-base text-wrap w-3/4 text-center">
+                            {curEvent.Images[pIndex].caption}
+                          </figcaption>
+                        )}
+                      </div>
+                      <div className="mx-1.5">
+                        {paragraph.children.map(
+                          (child, cIndex) =>
+                            child.text && (
+                              <span
+                                key={cIndex}
+                                className={`text-bigger-base md:text-large lg:text-extra-large ${
+                                  child.bold ? "font-bold" : ""
+                                }`}>
+                                {child.text}
+                              </span>
+                            )
+                        )}
+                      </div>
                     </div>
-
-                    <div className="mx-1.5">
-                      {paragraph.children.map(
-                        (child, cIndex) =>
-                          child.text && (
-                            <span
-                              key={cIndex}
-                              className={`text-bigger-base md:text-large lg:text-extra-large ${
-                                child.bold ? "font-bold" : ""
-                              }`}>
-                              {child.text}
-                            </span>
-                          )
-                      )}
-                    </div>
-                  </div>
-                  {/* Possible bugs */}
-                  {pIndex < curEvent.Description.length - 1 && (
-                    <CustomLine isEven={checkIfEven(pIndex)} />
-                  )}
-                </Fragment>
-              ))}
+                    {/* Possible bugs */}
+                    {pIndex < curEvent.Description.length - 1 && (
+                      <CustomLine isEven={checkIfEven(pIndex)} />
+                    )}
+                  </Fragment>
+                ))}
 
               {/* <CustomLine isEven={true} /> 
                <div className="flex flex-col items-center min-w-81 mx-1.5 mt-2 sm:mt-0">

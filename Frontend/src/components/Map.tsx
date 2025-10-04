@@ -1,6 +1,6 @@
 import "leaflet/dist/leaflet.css";
 import L, { icon } from "leaflet";
-import { useState, useMemo } from "react";
+import { useState, useMemo, Fragment } from "react";
 import openLegend from "../../public/icons/open-legend.png";
 import { useEffect } from "react";
 import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
@@ -13,7 +13,7 @@ import {
   Marker,
   Popup,
   useMap,
-  useMapEvents,
+  Polyline,
 } from "react-leaflet";
 import CustomPopup from "./CustomPopup";
 import MapElements from "../mapComponents/MapElements";
@@ -51,10 +51,13 @@ function MapUpdater({ zoom, center, events }: any) {
   return null;
 }
 
+const makeLines = (points: [number, number][]) => {};
+
 export default function Map() {
   const navContext = useNavigationIsOpenContext();
   const legendContext = useLegendIsOpenContext();
   const warContext = useWarContext();
+  const arr = [];
   const { currentWar } = warContext as { currentWar: any };
   const curWar = currentWar?.[0];
 
@@ -65,12 +68,8 @@ export default function Map() {
     setCurrentEvent: (event: any) => void;
   };
 
-  console.log("events in map:", events);
-
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
   const { setMarkerType } = MapElements();
-
   const { isNavOpen } = navContext as { isNavOpen: boolean };
 
   const { setIsLegendOpen } = legendContext as {
@@ -112,23 +111,37 @@ export default function Map() {
               )
               .map((event) => {
                 return (
-                  <Marker
-                    key={event.id}
-                    position={[
-                      parseFloat(event.PositionOnMapX),
-                      parseFloat(event.PositionOnMapY),
-                    ]}
-                    eventHandlers={{
-                      click: () => {
-                        setIsPopupOpen(true);
-                        setCurrentEvent(event);
-                      },
-                    }}
-                    icon={setMarkerType(event.MarkerType)(event.EventOrder)}
-                  />
+                  <Fragment key={event.id}>
+                    <Marker
+                      position={[
+                        parseFloat(event.PositionOnMapX),
+                        parseFloat(event.PositionOnMapY),
+                      ]}
+                      eventHandlers={{
+                        click: () => {
+                          setIsPopupOpen(true);
+                          setCurrentEvent(event);
+                        },
+                      }}
+                      icon={setMarkerType(event.MarkerType)(event.EventOrder)}
+                    />
+                  </Fragment>
                 );
               })}
-
+          {/* {events &&
+            events.map((event: any) => {
+              const alreadyExists = arr.some(
+                ([a, b]) =>
+                  a === parseFloat(event.PositionOnMapX) &&
+                  b === parseFloat(event.PositionOnMapY)
+              );
+              if (!alreadyExists) {
+                arr.push([
+                  parseFloat(event.PositionOnMapX),
+                  parseFloat(event.PositionOnMapY),
+                ]);
+              }
+            })} */}
           {/* <Marker
             position={[53.48733815530108, 20.09374477186679]} 
             icon={createTextIconPL("1")}

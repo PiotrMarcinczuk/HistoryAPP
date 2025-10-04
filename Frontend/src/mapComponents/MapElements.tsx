@@ -15,7 +15,7 @@ export default function MapElements() {
                   rounded-full border-[3px] border-[#312112] 
                   flex items-center justify-center relative font-semibold
                   bg-[#E35656]
-                   text-extra-large text-orange-darker">${text}</div>`,
+                   text-extra-large text-orange-darker hover:scale-105 ease-in duration-200">${text}</div>`,
       className: "",
     });
   };
@@ -26,7 +26,7 @@ export default function MapElements() {
                   rounded-full border-[3px] border-[#312112] 
                   flex items-center justify-center relative font-semibold
                   bg-[#DAD7D7]
-                   text-extra-large text-orange-darker">${text}</div>`,
+                   text-extra-large text-orange-darker hover:scale-105 ease-in duration-200">${text}</div>`,
       className: "",
     });
   };
@@ -34,7 +34,7 @@ export default function MapElements() {
   // {API - svg icon color}
   const createTextIconPLwin = (text: string) => {
     return new L.DivIcon({
-      html: `<div class="w-16 h-16 
+      html: `<div class="w-16 h-16 hover:scale-105 ease-in duration-200
                   rounded-full border-[3px] border-[#312112] 
                   flex items-center justify-center relative font-semibold
                   bg-[linear-gradient(to_right,#E35656_50%,#DAD7D7_50%)] 
@@ -48,7 +48,7 @@ export default function MapElements() {
 
   const createTextIconENEMYwin = (text: string) => {
     return new L.DivIcon({
-      html: `<div class="w-16 h-16 
+      html: `<div class="w-16 h-16 hover:scale-105 ease-in duration-200 
                   rounded-full border-[3px] border-[#312112] 
                   flex items-center justify-center relative font-semibold
                   bg-[linear-gradient(to_right,#E35656_50%,#DAD7D7_50%)] 
