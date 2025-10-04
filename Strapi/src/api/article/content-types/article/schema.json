@@ -43,12 +43,6 @@
     "Description": {
       "type": "blocks"
     },
-    "Legend_description": {
-      "type": "blocks"
-    },
-    "Images_description": {
-      "type": "blocks"
-    },
     "MarkerType": {
       "type": "enumeration",
       "enum": [

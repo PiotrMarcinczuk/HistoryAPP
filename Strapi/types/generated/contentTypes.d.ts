@@ -393,8 +393,6 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    Images_description: Schema.Attribute.Blocks;
-    Legend_description: Schema.Attribute.Blocks;
     Legend_images: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true

@@ -1,8 +1,10 @@
+import { Fragment, useRef } from "react";
 import { createPortal } from "react-dom";
 import img1 from "../../public/images/img1.png";
 import CustomLine from "./CustomLine";
 import { Scrollbar } from "react-scrollbars-custom";
 import { useEventsContext } from "../providers/EventsProvider";
+import React from "react";
 export default function Popup({ onClose }: { onClose: () => void }) {
   const { currentEvent } = useEventsContext();
   const curEvent = currentEvent?.[0];
@@ -29,24 +31,27 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                   </div>
                 </button>
               </div>
+
               {curEvent?.Description.map((paragraph, pIndex) => (
-                <>
+                <Fragment key={pIndex}>
+                  {/* items-center possible bug */}
                   <div
-                    key={pIndex}
-                    className={`flex flex-col-reverse sm:flex-row ${
+                    className={`flex flex-col-reverse items-center sm:items-start sm:justify-between sm:flex-row ${
                       checkIfEven(pIndex)
                         ? "sm:flex-row-reverse"
                         : "sm:flex-row"
                     } -mx-1.5`}>
-                    {/* Image + caption */}
-                    <div className="flex flex-col items-center min-w-81 mx-1.5 mt-2 sm:mt-0">
-                      <img src={img1} alt="król" className="w-full" />
+                    <div className="flex flex-col items-center max-w-81 min-w-81 mx-1.5 mt-2 sm:mt-0">
+                      <img
+                        src={`http://localhost:1337${curEvent.Images[pIndex].url}`}
+                        alt="król"
+                        className="w-full"
+                      />
                       <figcaption className="mt-2 text-base md:text-bigger-base text-wrap w-3/4 text-center">
-                        Polski władca na polach Grunwaldu
+                        {curEvent.Images[pIndex].caption}
                       </figcaption>
                     </div>
 
-                    {/* Paragraph text */}
                     <div className="mx-1.5">
                       {paragraph.children.map(
                         (child, cIndex) =>
@@ -62,8 +67,11 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                       )}
                     </div>
                   </div>
-                  <CustomLine isEven={checkIfEven(pIndex)} />{" "}
-                </>
+                  {/* Possible bugs */}
+                  {pIndex < curEvent.Description.length - 1 && (
+                    <CustomLine isEven={checkIfEven(pIndex)} />
+                  )}
+                </Fragment>
               ))}
 
               {/* <CustomLine isEven={true} /> 

@@ -45,7 +45,6 @@ function MapUpdater({ zoom, center, events }: any) {
   }, [center, map]);
 
   useEffect(() => {
-    // only invalidate size once, when map or center/zoom changes
     map.invalidateSize();
   }, [map, events]);
 
@@ -65,6 +64,8 @@ export default function Map() {
     events: any;
     setCurrentEvent: (event: any) => void;
   };
+
+  console.log("events in map:", events);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 

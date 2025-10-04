@@ -20,7 +20,7 @@ export default function EventsProvider({ children, value }) {
   useEffect(() => {
     const fetchData = async () => {
       const eventsData = await fetchEvents(warId);
-      if (eventsData.length > 0) setEvents(eventsData);
+      setEvents(eventsData);
     };
     fetchData();
   }, [warId]);
