@@ -18,7 +18,17 @@ import {
 import CustomPopup from "./CustomPopup";
 import MapElements from "../mapComponents/MapElements";
 
-export function ResizeHandler({ deps }: { deps: any[] }) {
+interface resizeHandlerDeps {
+  deps: [boolean];
+}
+
+interface mapUpdater {
+  zoom: number;
+  center: [number, number];
+  events: any;
+}
+
+export function ResizeHandler({ deps }: resizeHandlerDeps) {
   const map = useMap();
   useEffect(() => {
     setTimeout(() => {
@@ -29,7 +39,7 @@ export function ResizeHandler({ deps }: { deps: any[] }) {
   return null;
 }
 
-function MapUpdater({ zoom, center, events }: any) {
+function MapUpdater({ zoom, center, events }: mapUpdater) {
   const map = useMap();
 
   useEffect(() => {
@@ -51,13 +61,10 @@ function MapUpdater({ zoom, center, events }: any) {
   return null;
 }
 
-const makeLines = (points: [number, number][]) => {};
-
 export default function Map() {
   const navContext = useNavigationIsOpenContext();
   const legendContext = useLegendIsOpenContext();
   const warContext = useWarContext();
-  const arr = [];
   const { currentWar } = warContext as { currentWar: any };
   const curWar = currentWar?.[0];
 
@@ -76,25 +83,27 @@ export default function Map() {
     setIsLegendOpen: () => void;
   };
 
+  if (!curWar) return null;
+
   return (
     <section
       className={`${
         isNavOpen ? "xl:w-[75%] w-full" : "w-full"
       } ease-in duration-200 h-[90%] xs:h-[90%] m-2 z-10 flex flex-col justify-center items-center relative`}>
       <h1 className="xs:-mt-2 px-12 z-40 absolute top-0 rounded-sm text-bigger-base sm:text-extra-large lg:text-2x-large text-center font-medium text-text-primary bg-orange-dark/40 text-nowrap">
-        {curWar?.Title}
-        <br className="sm:hidden" /> {curWar?.WarLength}
+        {curWar.Title}
+        <br className="sm:hidden" /> {curWar.WarLength}
       </h1>
       {curWar && (
         <MapContainer
-          center={[curWar?.Center?.lat, curWar?.Center?.lng]}
+          center={[curWar.Center.lat, curWar.Center.lng]}
           zoom={curWar.MapZoom}
           zoomControl={false}
           scrollWheelZoom={false}
           className="w-full h-full z-30 rounded-sm">
           <MapUpdater
-            zoom={curWar?.MapZoom}
-            center={[curWar.Center?.lat, curWar.Center?.lng]}
+            zoom={curWar.MapZoom}
+            center={[curWar.Center.lat, curWar.Center.lng]}
             events={events}
           />
           <ResizeHandler deps={[isNavOpen]} />
@@ -105,11 +114,11 @@ export default function Map() {
           {events &&
             events
               .filter(
-                (event) =>
+                (event: any) =>
                   event.PositionOnMapX !== undefined &&
                   event.PositionOnMapY !== undefined
               )
-              .map((event) => {
+              .map((event: any) => {
                 return (
                   <Fragment key={event.id}>
                     <Marker

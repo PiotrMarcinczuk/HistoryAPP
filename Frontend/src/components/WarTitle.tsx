@@ -2,14 +2,17 @@ interface WarTitleProps {
   title: string;
 }
 import { useWarContext } from "../providers/WarProvider";
+import { WarContextType } from "../interfaces/prvoiderInterfaces";
 
 export default function WarTitle({ title }: WarTitleProps) {
-  const { currentWar, setCurrentWar } = useWarContext();
+  const { currentWar, setCurrentWar }: WarContextType = useWarContext();
   const warTitle = currentWar?.[0].Title;
   return (
     <li className="w-full flex font-light">
       <button
-        onClick={(e) => setCurrentWar(e.target)}
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+          if (setCurrentWar) setCurrentWar(e.currentTarget);
+        }}
         className={`text-center ${
           warTitle === title
             ? ""

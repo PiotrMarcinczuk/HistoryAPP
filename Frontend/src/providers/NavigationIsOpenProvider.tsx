@@ -1,9 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-
-interface NavigationIsOpenProviderProps {
-  children: ReactNode;
-  value: boolean;
-}
+import { createContext, useContext, useState } from "react";
+import { NavigationIsOpenProviderProps } from "../interfaces/prvoiderInterfaces";
 
 export const NavigationIsOpenContext = createContext<{} | boolean>(true);
 
@@ -11,7 +7,7 @@ export default function NavigationIsOpenProvider({
   children,
   value = true,
 }: NavigationIsOpenProviderProps) {
-  const [isNavOpen, setIsNavOpen] = useState(value);
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(value);
   const toggle = () => setIsNavOpen(!isNavOpen);
   return (
     <NavigationIsOpenContext value={{ isNavOpen, setIsNavOpen: toggle }}>

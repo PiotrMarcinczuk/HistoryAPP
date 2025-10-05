@@ -5,15 +5,17 @@ import {
   useEffect,
   useState,
 } from "react";
-import { fetchWars } from "../api/fetchData";
-export const WarsContext = createContext<{} | []>([]);
+import fetchData from "../api/fetchData";
+import { WarContextType } from "../interfaces/prvoiderInterfaces";
+export const WarsContext = createContext<WarContextType | any>(null);
 
-export default function WarProvider({ children }) {
-  const [wars, setWars] = useState<any>([]);
+export default function WarProvider({ children }: { children: ReactNode }) {
+  const { fetchWars } = fetchData();
+  const [wars, setWars] = useState<any[]>([]);
   const [currentWar, setCurrentWar] = useState<any>(null);
 
-  const onClickWar = (clickedWar: any) => {
-    const war = wars.filter((war) => war.Title === clickedWar.innerText);
+  const onClickWar = (clickedWar: HTMLButtonElement) => {
+    const war = wars.filter((war: any) => war.Title === clickedWar.innerText);
     setCurrentWar(war);
   };
 

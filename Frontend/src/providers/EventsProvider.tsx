@@ -1,39 +1,41 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
 import { useWarContext } from "./WarProvider";
-import { fetchEvents } from "../api/fetchData";
+import fetchData from "../api/fetchData";
 import { useEffect } from "react";
+import { EventsContextType } from "../interfaces/prvoiderInterfaces";
 
-export const EventsConext = createContext<{} | null>(null);
+export const EventsContext = createContext<EventsContextType | null>(null);
 
-export default function EventsProvider({ children, value }) {
+export default function EventsProvider({ children }: { children: ReactNode }) {
+  const { fetchEvents } = fetchData();
   const [events, setEvents] = useState<any>(null);
   const [currentEvent, setCurrentEvent] = useState<any>(null);
 
-  const warContext = useWarContext();
+  const warContext = useWarContext() as EventsContextType;
   const warId = warContext.currentWar?.[0]?.documentId;
 
   const onClickEvent = (clickedEvent: any) => {
-    const event = events.filter((event) => event.id === clickedEvent.id);
+    const event = events.filter((event: any) => event.id === clickedEvent.id);
     setCurrentEvent(event);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      const eventsData = await fetchEvents(warId);
+      const eventsData = await fetchEvents(warId as string);
       setEvents(eventsData);
     };
     fetchData();
   }, [warId]);
   return (
-    <EventsConext
+    <EventsContext
       value={{ events, setCurrentEvent: onClickEvent, currentEvent }}>
       {children}
-    </EventsConext>
+    </EventsContext>
   );
 }
 
 export function useEventsContext() {
-  const context = useContext(EventsConext);
+  const context = useContext(EventsContext);
   if (context === undefined) {
     throw new Error("useEventsContext must be used within an EventsProvider");
   }

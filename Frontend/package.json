@@ -15,6 +15,7 @@
     "leaflet": "^1.9.4",
     "react": "^19.0.0-rc.1",
     "react-dom": "^19.0.0-rc.1",
+    "react-error-boundary": "^6.0.0",
     "react-leaflet": "^5.0.0-rc.2",
     "react-scrollbars-custom": "^4.1.1",
     "tailwindcss": "^4.1.13"

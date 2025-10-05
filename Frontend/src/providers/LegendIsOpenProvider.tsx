@@ -1,9 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from "react";
-
-interface LegendIsOpenProviderProps {
-  children: ReactNode;
-  value: boolean;
-}
+import { createContext, useContext, useState } from "react";
+import { LegendIsOpenProviderProps } from "../interfaces/prvoiderInterfaces";
 
 export const LegendIsOpenContext = createContext<{} | boolean>(true);
 
@@ -11,7 +7,7 @@ export default function LegendIsOpenProvider({
   children,
   value = true,
 }: LegendIsOpenProviderProps) {
-  const [isLegendOpen, setIsLegendOpen] = useState(value);
+  const [isLegendOpen, setIsLegendOpen] = useState<boolean>(value);
   const toggle = () => setIsLegendOpen(!isLegendOpen);
   return (
     <LegendIsOpenContext value={{ isLegendOpen, setIsLegendOpen: toggle }}>
