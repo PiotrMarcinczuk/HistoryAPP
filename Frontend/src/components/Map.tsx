@@ -87,6 +87,7 @@ export default function Map() {
         {curWar.Title}
         <br className="sm:hidden" /> {curWar.WarLength}
       </h1>
+
       {curWar && (
         <MapContainer
           center={[curWar.Center.lat, curWar.Center.lng]}

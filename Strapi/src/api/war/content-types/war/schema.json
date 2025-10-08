@@ -25,8 +25,21 @@
     "MapZoom": {
       "type": "decimal"
     },
+    "LegendImages": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
     "Center": {
       "type": "json"
+    },
+    "Sources": {
+      "type": "richtext"
     }
   }
 }

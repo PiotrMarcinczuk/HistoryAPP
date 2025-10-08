@@ -1,22 +1,70 @@
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
 import vector from "../../public/icons/vector.png";
+import { useWarContext } from "../providers/WarProvider";
+const VITE_API_URL_UPLOADS = import.meta.env.VITE_API_URL_UPLOADS;
+import { useState } from "react";
 
 export default function LegendBar() {
+  const [sourcesIsOpen, setSourcesIsOpen] = useState(false);
   const { isLegendOpen, setIsLegendOpen } = useLegendIsOpenContext() as {
     isLegendOpen: boolean;
     setIsLegendOpen: () => void;
   };
 
+  const { currentWar } = useWarContext() as { currentWar: any };
+  const curWar = currentWar?.[0];
+  console.log("curWar in LegendBar: ", curWar);
+
   return (
     <section
-      className={`max-w-[400px] w-full z-50 h-full fixed top-0 right-0 ${
+      className={`max-w-[400px] w-full z-50 h-full fixed top-0 right-0 text-text-primary ${
         isLegendOpen ? "translate-x-0" : "translate-x-full"
       } ease-in duration-200`}>
-      <div className="flex items-center justify-center p-4">
+      <div className="flex flex-col items-center justify-center p-4 w-full h-full">
         <div className="absolute inset-0 bg-[url('/images/legend-bg.jpg')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-orange-darker/80"></div>
+        <div className="relative bg-[#DDD5CD]/20 z-20 h-full w-full flex flex-col overflow-hidden">
+          <ul className="w-full h-full p-1">
+            {/* src={`${VITE_API_URL_UPLOADS}${curEvent.Images[pIndex].url}`} */}
+            {curWar?.LegendImages.map((img: any) => {
+              return (
+                <li className="p-1 flex items-center">
+                  <img
+                    className="max-w-16"
+                    src={`${VITE_API_URL_UPLOADS}${img.url}`}
+                  />
+                  <p className="ml-2 text-center text-bigger-base">
+                    {img.caption}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
+          <p className="text-bigger-base text-center mt-10 ease-in duration-200">
+            Interesują cię zródła? Kliknij{" "}
+            <button
+              onClick={() => setSourcesIsOpen(!sourcesIsOpen)}
+              className="font-bold hover:cursor-pointer">
+              tutaj
+            </button>
+          </p>
 
-        <div className="bg-[#DDD5CD]/20 z-20 w-full h-full">fsd</div>
+          <ul
+            className={`w-full transition-all duration-200 bg-red-500 ${
+              sourcesIsOpen ? "max-h-32 translate-y-0" : "max-h-0 translate-y-2"
+            }`}>
+            {curWar?.Sources.split(/\s+/).map((src: any) => {
+              return (
+                <li className="w-full py-0.1 text-extra-small px-2 hover:underline hover:cursor-pointer">
+                  <a target="_blank" href={src}>
+                    {src}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
         <div
           className={`absolute ease-in duration-200 ${
             isLegendOpen ? "ml-2 sm:-translate-x-1/2 sm:ml-0" : ""
