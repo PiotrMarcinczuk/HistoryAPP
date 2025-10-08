@@ -1,8 +1,9 @@
+import { useState } from "react";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
 import vector from "../../public/icons/vector.png";
 import { useWarContext } from "../providers/WarProvider";
 const VITE_API_URL_UPLOADS = import.meta.env.VITE_API_URL_UPLOADS;
-import { useState } from "react";
+import { Scrollbar } from "react-scrollbars-custom";
 
 export default function LegendBar() {
   const [sourcesIsOpen, setSourcesIsOpen] = useState(false);
@@ -13,7 +14,6 @@ export default function LegendBar() {
 
   const { currentWar } = useWarContext() as { currentWar: any };
   const curWar = currentWar?.[0];
-  console.log("curWar in LegendBar: ", curWar);
 
   return (
     <section
@@ -41,28 +41,30 @@ export default function LegendBar() {
             })}
           </ul>
           <p className="text-bigger-base text-center mt-10 ease-in duration-200">
-            Interesują cię zródła? Kliknij{" "}
+            {sourcesIsOpen ? "Chcesz ukryć źródła?" : "Interesują cię źródła?"}{" "}
+            Kliknij{" "}
             <button
               onClick={() => setSourcesIsOpen(!sourcesIsOpen)}
               className="font-bold hover:cursor-pointer">
               tutaj
             </button>
           </p>
-
-          <ul
-            className={`w-full transition-all duration-200 bg-red-500 ${
-              sourcesIsOpen ? "max-h-32 translate-y-0" : "max-h-0 translate-y-2"
+          <Scrollbar
+            className={`w-full ease-in duration-200 relative ${
+              sourcesIsOpen ? "overflow-y-auto max-h-32" : "max-h-0"
             }`}>
-            {curWar?.Sources.split(/\s+/).map((src: any) => {
-              return (
-                <li className="w-full py-0.1 text-extra-small px-2 hover:underline hover:cursor-pointer">
-                  <a target="_blank" href={src}>
-                    {src}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+            <ul>
+              {curWar?.Sources.split(/\s+/).map((src: any) => {
+                return (
+                  <li className="py-0.1 text-extra-small px-2 hover:underline hover:cursor-pointer">
+                    <a target="_blank" href={src}>
+                      {src}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </Scrollbar>
         </div>
 
         <div
