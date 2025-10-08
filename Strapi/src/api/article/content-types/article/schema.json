@@ -14,6 +14,7 @@
     "Images": {
       "type": "media",
       "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
@@ -24,6 +25,7 @@
     "Legend_images": {
       "type": "media",
       "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
@@ -32,28 +34,45 @@
       ]
     },
     "EventOrder": {
-      "type": "integer"
+      "type": "integer",
+      "required": false
     },
     "PositionOnMapX": {
-      "type": "decimal"
+      "type": "decimal",
+      "required": true
     },
     "PositionOnMapY": {
-      "type": "decimal"
+      "type": "decimal",
+      "required": true
     },
     "Description": {
       "type": "blocks"
     },
     "MarkerType": {
       "type": "enumeration",
+      "required": true,
       "enum": [
         "PL",
         "EN",
         "PLW",
-        "ENW"
+        "PLCIT",
+        "PLCAS",
+        "ENW",
+        "ENCIT",
+        "ENCAS"
       ]
     },
     "Title": {
-      "type": "string"
+      "type": "string",
+      "required": true
+    },
+    "IsEvent": {
+      "type": "boolean",
+      "required": true
+    },
+    "SimpleDescription": {
+      "type": "text",
+      "required": true
     }
   }
 }

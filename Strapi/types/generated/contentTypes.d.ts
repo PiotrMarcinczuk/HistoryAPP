@@ -393,6 +393,7 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
+    IsEvent: Schema.Attribute.Boolean & Schema.Attribute.Required;
     Legend_images: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -403,11 +404,15 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
       'api::article.article'
     > &
       Schema.Attribute.Private;
-    MarkerType: Schema.Attribute.Enumeration<['PL', 'EN', 'PLW', 'ENW']>;
-    PositionOnMapX: Schema.Attribute.Decimal;
-    PositionOnMapY: Schema.Attribute.Decimal;
+    MarkerType: Schema.Attribute.Enumeration<
+      ['PL', 'EN', 'PLW', 'PLCIT', 'PLCAS', 'ENW', 'ENCIT', 'ENCAS']
+    > &
+      Schema.Attribute.Required;
+    PositionOnMapX: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    PositionOnMapY: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    Title: Schema.Attribute.String;
+    SimpleDescription: Schema.Attribute.Text & Schema.Attribute.Required;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

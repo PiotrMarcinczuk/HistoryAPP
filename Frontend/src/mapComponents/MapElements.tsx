@@ -6,9 +6,61 @@ enum MarkerTypes {
   EN = "EN",
   PLW = "PLW", // win
   ENW = "ENW", // win
+  PLCIT = "PLCIT", // city
+  ENCIT = "ENCIT", // city
+  PLCAS = "PLCAS", // castle
+  ENCAS = "ENCAS", // castle
 }
 
 export default function MapElements() {
+  const createCityPL = (text: string) => {
+    return new L.DivIcon({
+      html: `<div class="flex flex-col items-center justify-center text-white text-base"><svg width="36" height="36" viewBox="0 0 72 76" fill="white" xmlns="http://www.w3.org/2000/svg">
+<path d="M48 36V12L36 0L24 12V20H0V76H72V36H48ZM16 68H8V60H16V68ZM16 52H8V44H16V52ZM16 36H8V28H16V36ZM40 68H32V60H40V68ZM40 52H32V44H40V52ZM40 36H32V28H40V36ZM40 20H32V12H40V20ZM64 68H56V60H64V68ZM64 52H56V44H64V52Z" fill="#E35656"/>
+</svg>
+${text}
+</div>`,
+      className: "",
+    });
+  };
+
+  const createCastlePL = (text: string) => {
+    return new L.DivIcon({
+      html: `<div class="flex flex-col items-center justify-center text-white text-base"><svg width="36" height="36" viewBox="0 0 96 96" fill="#dad7d7" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 22L22 8L36 22H8ZM60 22L74 8L88 22H60Z" stroke="#E35656" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88 88V52H80V34H68V52H56V42L48 34L40 42V52H28V34H16V52H8V88H36V80C36 76.8174 37.2643 73.7652 39.5147 71.5147C41.7652 69.2643 44.8174 68 48 68C51.1826 68 54.2348 69.2643 56.4853 71.5147C58.7357 73.7652 60 76.8174 60 80V88H88Z" fill="#E35656" stroke="#E356567" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14 22H30V34H14V22ZM66 22H82V34H66V22Z" stroke="#E35656" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+${text}
+</div>`,
+      className: "",
+    });
+  };
+
+  const createCityENEMY = (text: string) => {
+    return new L.DivIcon({
+      html: `<div class="flex flex-col items-center justify-center text-white text-base"><svg width="36" height="36" viewBox="0 0 72 76" fill="white" xmlns="http://www.w3.org/2000/svg">
+<path d="M48 36V12L36 0L24 12V20H0V76H72V36H48ZM16 68H8V60H16V68ZM16 52H8V44H16V52ZM16 36H8V28H16V36ZM40 68H32V60H40V68ZM40 52H32V44H40V52ZM40 36H32V28H40V36ZM40 20H32V12H40V20ZM64 68H56V60H64V68ZM64 52H56V44H64V52Z" fill="#dad7d7"/>
+</svg>
+${text}
+</div>`,
+      className: "",
+    });
+  };
+
+  const createCastleENEMY = (text: string) => {
+    return new L.DivIcon({
+      html: `<div class="flex flex-col items-center justify-center text-white text-base"><svg width="36" height="36" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 22L22 8L36 22H8ZM60 22L74 8L88 22H60Z" stroke="#dad7d7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M88 88V52H80V34H68V52H56V42L48 34L40 42V52H28V34H16V52H8V88H36V80C36 76.8174 37.2643 73.7652 39.5147 71.5147C41.7652 69.2643 44.8174 68 48 68C51.1826 68 54.2348 69.2643 56.4853 71.5147C58.7357 73.7652 60 76.8174 60 80V88H88Z" fill="#dad7d7" stroke="#dad7d7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14 22H30V34H14V22ZM66 22H82V34H66V22Z" stroke="#dad7d7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+${text}
+</div>`,
+      className: "",
+    });
+  };
+
   const createTextIconPL = (text: string) => {
     return new L.DivIcon({
       html: ` <div class="w-16 h-16 
@@ -25,7 +77,7 @@ export default function MapElements() {
       html: ` <div class="w-16 h-16 
                   rounded-full border-[3px] border-[#312112] 
                   flex items-center justify-center relative font-semibold
-                  bg-[#DAD7D7]
+                  bg-gray-enemy
                    text-extra-large text-orange-darker hover:scale-105 ease-in duration-200">${text}</div>`,
       className: "",
     });
@@ -66,10 +118,18 @@ export default function MapElements() {
         return createTextIconPL;
       case MarkerTypes.PLW:
         return createTextIconPLwin;
+      case MarkerTypes.PLCIT:
+        return createCityPL;
+      case MarkerTypes.PLCAS:
+        return createCastlePL;
       case MarkerTypes.EN:
         return createTextIconENEMY;
       case MarkerTypes.ENW:
         return createTextIconENEMYwin;
+      case MarkerTypes.ENCIT:
+        return createCityENEMY;
+      case MarkerTypes.ENCAS:
+        return createCastleENEMY;
       default:
         return createTextIconPL;
     }

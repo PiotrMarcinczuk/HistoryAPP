@@ -7,14 +7,7 @@ import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvide
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
 import { useWarContext } from "../providers/WarProvider";
 import { useEventsContext } from "../providers/EventsProvider";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMap,
-  Polyline,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import CustomPopup from "./CustomPopup";
 import MapElements from "../mapComponents/MapElements";
 
@@ -131,40 +124,32 @@ export default function Map() {
                           setIsPopupOpen(true);
                           setCurrentEvent(event);
                         },
+                        mouseover: (e) => {
+                          e.target.openPopup();
+                        },
+                        mouseout: (e) => {
+                          e.target.closePopup();
+                        },
                       }}
-                      icon={setMarkerType(event.MarkerType)(event.EventOrder)}
-                    />
+                      icon={setMarkerType(event.MarkerType)(
+                        event.IsEvent ? event.EventOrder : event.Title
+                      )}>
+                      <Popup>
+                        <div className="flex flex-col">
+                          <h3 className="font-bold text-bigger-base">
+                            {event.Title}
+                          </h3>
+                          <p className="break-all">{event.SimpleDescription}</p>
+                        </div>
+                      </Popup>
+                    </Marker>
+
+                    {isPopupOpen && (
+                      <CustomPopup onClose={() => setIsPopupOpen(false)} />
+                    )}
                   </Fragment>
                 );
               })}
-          {/* {events &&
-            events.map((event: any) => {
-              const alreadyExists = arr.some(
-                ([a, b]) =>
-                  a === parseFloat(event.PositionOnMapX) &&
-                  b === parseFloat(event.PositionOnMapY)
-              );
-              if (!alreadyExists) {
-                arr.push([
-                  parseFloat(event.PositionOnMapX),
-                  parseFloat(event.PositionOnMapY),
-                ]);
-              }
-            })} */}
-          {/* <Marker
-            position={[53.48733815530108, 20.09374477186679]} 
-            icon={createTextIconPL("1")}
-            eventHandlers={{ click: () => setIsPopupOpen(true) }} 
-          ></Marker>{" "}
-          <Marker
-            position={[54.03623538101871, 19.025919513229628]}
-            icon={createTextIconPLwin("2")}></Marker>
-          <Marker
-            position={[52.83239932456155, 19.043765385859906]}
-            icon={createTextIconENEMY("3")}></Marker>
-          <Marker
-            position={[54.13324499637606, 19.878726302726086]}
-            icon={createTextIconENEMYwin("4")}></Marker> */}
         </MapContainer>
       )}
       {isPopupOpen && <CustomPopup onClose={() => setIsPopupOpen(false)} />}
