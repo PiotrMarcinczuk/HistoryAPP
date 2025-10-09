@@ -111,7 +111,12 @@ export default function Map() {
             const bounds = country.bounds.data;
             return (
               <Fragment key={country.id}>
-                <Polygon positions={coordinates} color={color} weight={0} />
+                <Polygon
+                  interactive={false}
+                  positions={coordinates}
+                  color={color}
+                  weight={0}
+                />
                 <CountriesNameOnMap
                   dElement={dElement}
                   fontSize={fontSize}
@@ -121,6 +126,11 @@ export default function Map() {
               </Fragment>
             );
           })}
+          <MapUpdater
+            zoom={curWar.MapZoom}
+            center={[curWar.Center.lat, curWar.Center.lng]}
+            events={events}
+          />{" "}
           <ResizeHandler deps={[isNavOpen]} />
           <TileLayer
             attribution='"Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"'

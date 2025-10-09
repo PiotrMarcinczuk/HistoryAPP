@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
 import vector from "../../public/icons/vector.png";
+import battleIcon from "../../public/icons/battle-icon-36.png";
 import { useWarContext } from "../providers/WarProvider";
 const VITE_API_URL_UPLOADS = import.meta.env.VITE_API_URL_UPLOADS;
 import { Scrollbar } from "react-scrollbars-custom";
@@ -27,7 +28,7 @@ export default function LegendBar() {
         <div className="absolute inset-0 bg-[url('/images/legend-bg.jpg')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-orange-darker/80"></div>
         <div className="relative bg-[#DDD5CD]/20 z-20 h-full w-full flex flex-col overflow-hidden">
-          <ul className="w-full h-full p-1 mb-24">
+          <ul className="w-full h-full p-1">
             {curWar?.LegendImages.map((img: any) => {
               return (
                 <li key={img.id} className="p-1 flex items-center">
@@ -40,9 +41,9 @@ export default function LegendBar() {
               );
             })}
           </ul>
-          <Scrollbar className="text-center">
+          <Scrollbar className="text-center flex items-center mt-8">
             <p className="text-large">Strony konfliktu:</p>
-            <div className="flex relative text-base mt-2 h-full">
+            <div className="flex justify-between items-between text-base mt-2 h-full">
               <div className="w-1/2 flex flex-col justify-between items-between p-1">
                 {countriesList
                   .filter((country) => !country.isEnemy)
@@ -55,29 +56,36 @@ export default function LegendBar() {
                               src={`${VITE_API_URL_UPLOADS}${country.flag.url}`}
                               alt="Flaga państwa"
                             />
-                            <figcaption>{country.name}</figcaption>
+                            <figcaption className="ml-1 text-left">
+                              {country.name}
+                            </figcaption>
                           </div>
                         </div>
                       </>
                     );
                   })}
               </div>
-              <div className="absolute top-1/2 -translate-y-1/2 left-1/2 text-base">
-                VS
+              <div className="w-16 flex items-center justify-center">
+                <img src={battleIcon} className="w-6" alt="Ikona bitwy" />
               </div>
-              <div className="w-1/2 flex flex-col items-end justify-start  p-1">
+              <div className="w-1/2 flex flex-col items-end justify-start p-1">
                 {countriesList
                   .filter((country) => country.isEnemy)
                   .map((country) => {
                     return (
-                      <div key={country.id} className="flex items-center">
-                        <div className="w-12 h-12">
-                          <img
-                            src={`${VITE_API_URL_UPLOADS}${country.flag.url}`}
-                            alt="fds"
-                          />
+                      <>
+                        <div key={country.id} className="flex w-full">
+                          <div className="w-14 h-12 flex items-center">
+                            <img
+                              src={`${VITE_API_URL_UPLOADS}${country.flag.url}`}
+                              alt="Flaga państwa"
+                            />
+                            <figcaption className="ml-1 text-left">
+                              {country.name}
+                            </figcaption>
+                          </div>
                         </div>
-                      </div>
+                      </>
                     );
                   })}
               </div>
