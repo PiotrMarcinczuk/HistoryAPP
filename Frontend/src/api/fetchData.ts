@@ -10,7 +10,10 @@ export default function fetchData() {
   const { showBoundary } = useErrorBoundary();
   const fetchWars = async () => {
     try {
-      const response = await axiosInstance.get(`/wars?populate=*`);
+      const response = await axiosInstance.get(
+        `/wars?populate[0]=countries&populate[1]=countries.flag&populate[2]=LegendImages`
+      );
+      console.log(response.data.data);
       return response.data.data;
     } catch (error: any) {
       showBoundary(error);

@@ -1,6 +1,11 @@
 import { SVGOverlay } from "react-leaflet";
-
-export default function StateNameOnMap({ dElement, bounds, fontSize, text }) {
+import { CountriesNameOnMapProps } from "../interfaces/componentInterfaces";
+export default function CountriesNameOnMap({
+  dElement,
+  bounds,
+  fontSize,
+  text,
+}: CountriesNameOnMapProps) {
   const pathId = `path-${Math.random().toString(36).substr(2, 9)}`; // unique ID
   return (
     <SVGOverlay bounds={bounds}>

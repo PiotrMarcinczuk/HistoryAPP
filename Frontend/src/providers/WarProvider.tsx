@@ -13,6 +13,7 @@ export default function WarProvider({ children }: { children: ReactNode }) {
   const { fetchWars } = fetchData();
   const [wars, setWars] = useState<any[]>([]);
   const [currentWar, setCurrentWar] = useState<any>(null);
+  const [countriesList, setCountriesList] = useState<any[]>([]);
 
   const onClickWar = (clickedWar: HTMLButtonElement) => {
     const war = wars.filter((war: any) => war.Title === clickedWar.innerText);
@@ -25,13 +26,15 @@ export default function WarProvider({ children }: { children: ReactNode }) {
       if (warsData) {
         setWars(warsData);
         setCurrentWar([warsData[0]]);
+        setCountriesList(warsData[0].countries);
       }
     };
     fetchData();
   }, []);
 
   return (
-    <WarsContext value={{ wars, setCurrentWar: onClickWar, currentWar }}>
+    <WarsContext
+      value={{ wars, setCurrentWar: onClickWar, currentWar, countriesList }}>
       {children}
     </WarsContext>
   );

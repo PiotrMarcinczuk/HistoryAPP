@@ -12,7 +12,10 @@ export default function LegendBar() {
     setIsLegendOpen: () => void;
   };
 
-  const { currentWar } = useWarContext() as { currentWar: any };
+  const { currentWar, countriesList } = useWarContext() as {
+    currentWar: any;
+    countriesList: any[];
+  };
   const curWar = currentWar?.[0];
 
   return (
@@ -24,13 +27,12 @@ export default function LegendBar() {
         <div className="absolute inset-0 bg-[url('/images/legend-bg.jpg')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-orange-darker/80"></div>
         <div className="relative bg-[#DDD5CD]/20 z-20 h-full w-full flex flex-col overflow-hidden">
-          <ul className="w-full h-full p-1">
-            {/* src={`${VITE_API_URL_UPLOADS}${curEvent.Images[pIndex].url}`} */}
+          <ul className="w-full h-full p-1 mb-24">
             {curWar?.LegendImages.map((img: any) => {
               return (
                 <li key={img.id} className="p-1 flex items-center">
                   <img
-                    className="max-w-12"
+                    className="max-w-10"
                     src={`${VITE_API_URL_UPLOADS}${img.url}`}
                   />
                   <p className="ml-2 word-break text-base">{img.caption}</p>
@@ -38,6 +40,49 @@ export default function LegendBar() {
               );
             })}
           </ul>
+          <Scrollbar className="text-center">
+            <p className="text-large">Strony konfliktu:</p>
+            <div className="flex relative text-base mt-2 h-full">
+              <div className="w-1/2 flex flex-col justify-between items-between p-1">
+                {countriesList
+                  .filter((country) => !country.isEnemy)
+                  .map((country) => {
+                    return (
+                      <>
+                        <div key={country.id} className="flex w-full">
+                          <div className="w-14 h-12 flex items-center">
+                            <img
+                              src={`${VITE_API_URL_UPLOADS}${country.flag.url}`}
+                              alt="Flaga państwa"
+                            />
+                            <figcaption>{country.name}</figcaption>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })}
+              </div>
+              <div className="absolute top-1/2 -translate-y-1/2 left-1/2 text-base">
+                VS
+              </div>
+              <div className="w-1/2 flex flex-col items-end justify-start  p-1">
+                {countriesList
+                  .filter((country) => country.isEnemy)
+                  .map((country) => {
+                    return (
+                      <div key={country.id} className="flex items-center">
+                        <div className="w-12 h-12">
+                          <img
+                            src={`${VITE_API_URL_UPLOADS}${country.flag.url}`}
+                            alt="fds"
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </Scrollbar>
           <p className="text-bigger-base text-center mt-10 ease-in duration-200">
             {sourcesIsOpen ? "Chcesz ukryć źródła?" : "Interesują cię źródła?"}{" "}
             Kliknij{" "}
