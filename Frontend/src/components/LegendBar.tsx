@@ -21,14 +21,14 @@ export default function LegendBar() {
 
   return (
     <section
-      className={`max-w-[400px] w-full z-50 h-full fixed top-0 right-0 text-text-primary ${
+      className={`max-w-[400px] w-full z-50 h-full fixed top-0 right-0 text-text-primary  ${
         isLegendOpen ? "translate-x-0" : "translate-x-full"
-      } ease-in duration-200`}>
+      } ease-in duration-200 `}>
       <div className="flex flex-col items-center justify-center p-4 w-full h-full">
         <div className="absolute inset-0 bg-[url('/images/legend-bg.jpg')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-orange-darker/80"></div>
-        <div className="relative bg-[#DDD5CD]/20 z-20 h-full w-full flex flex-col overflow-hidden">
-          <ul className="w-full h-full p-1">
+        <div className="relative bg-[#DDD5CD]/20 z-20 h-full w-full flex flex-col overflow-y-auto overflow-x-hidden">
+          <ul className="w-full p-1">
             {curWar?.LegendImages.map((img: any) => {
               return (
                 <li key={img.id} className="p-1 flex items-center">
@@ -41,10 +41,16 @@ export default function LegendBar() {
               );
             })}
           </ul>
-          <Scrollbar className="text-center flex items-center mt-8">
+          <Scrollbar
+            style={{
+              height: "100%",
+              minHeight: "200px",
+              maxHeight: "calc(100vh - 150px)",
+            }}
+            className="flex-1 text-center flex flex-col items-center mt-8 h-full">
             <p className="text-large">Strony konfliktu:</p>
-            <div className="flex justify-between items-between text-base mt-2 h-full">
-              <div className="w-1/2 flex flex-col justify-between items-between p-1">
+            <div className="flex text-base mt-2 w-full">
+              <div className="w-1/2 flex items-start justify-start flex-col n p-1">
                 {countriesList
                   .filter((country) => !country.isEnemy)
                   .map((country) => {
@@ -68,7 +74,7 @@ export default function LegendBar() {
               <div className="w-16 flex items-center justify-center">
                 <img src={battleIcon} className="w-6" alt="Ikona bitwy" />
               </div>
-              <div className="w-1/2 flex flex-col items-end justify-start p-1">
+              <div className="w-1/2 flex items-center justify-start flex-col p-1">
                 {countriesList
                   .filter((country) => country.isEnemy)
                   .map((country) => {
@@ -101,6 +107,11 @@ export default function LegendBar() {
             </button>
           </p>
           <Scrollbar
+            style={{
+              height: "0",
+              minHeight: sourcesIsOpen ? "100px" : "0px",
+              maxHeight: "calc(100vh - 150px)",
+            }}
             className={`w-full ease-in duration-200 relative ${
               sourcesIsOpen ? "overflow-y-auto max-h-32" : "max-h-0"
             }`}>

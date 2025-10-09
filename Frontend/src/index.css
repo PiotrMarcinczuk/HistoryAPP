@@ -49,3 +49,7 @@ body {
 
   --breakpoint-xs: 460px;
 }
+
+.leaflet-control-attribution path {
+  display: none;
+}
