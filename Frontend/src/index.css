@@ -49,3 +49,7 @@ body {
 
   --breakpoint-xs: 460px;
 }
+.leaflet-svg-overlay,
+.leaflet-svg-overlay * {
+  cursor: default !important;
+}

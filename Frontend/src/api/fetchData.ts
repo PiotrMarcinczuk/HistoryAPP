@@ -10,7 +10,7 @@ export default function fetchData() {
   const { showBoundary } = useErrorBoundary();
   const fetchWars = async () => {
     try {
-      const response = await axiosInstance.get(`/wars?populate=LegendImages`);
+      const response = await axiosInstance.get(`/wars?populate=*`);
       return response.data.data;
     } catch (error: any) {
       showBoundary(error);
@@ -19,6 +19,7 @@ export default function fetchData() {
 
   const fetchEvents = async (warId: string) => {
     // MUST USE documentId not id
+    if (!warId) return;
     try {
       const response = await axiosInstance.get(
         `/wars/${warId}?populate[0]=war_details&populate[1]=war_details.Images`

@@ -28,14 +28,12 @@ export default function LegendBar() {
             {/* src={`${VITE_API_URL_UPLOADS}${curEvent.Images[pIndex].url}`} */}
             {curWar?.LegendImages.map((img: any) => {
               return (
-                <li className="p-1 flex items-center">
+                <li key={img.id} className="p-1 flex items-center">
                   <img
-                    className="max-w-16"
+                    className="max-w-12"
                     src={`${VITE_API_URL_UPLOADS}${img.url}`}
                   />
-                  <p className="ml-2 text-center text-bigger-base">
-                    {img.caption}
-                  </p>
+                  <p className="ml-2 word-break text-base">{img.caption}</p>
                 </li>
               );
             })}
@@ -54,9 +52,11 @@ export default function LegendBar() {
               sourcesIsOpen ? "overflow-y-auto max-h-32" : "max-h-0"
             }`}>
             <ul>
-              {curWar?.Sources.split(/\s+/).map((src: any) => {
+              {curWar?.Sources.split(/\s+/).map((src: any, index: number) => {
                 return (
-                  <li className="py-0.1 text-extra-small px-2 hover:underline hover:cursor-pointer">
+                  <li
+                    key={index}
+                    className="py-0.1 text-extra-small px-2 hover:underline hover:cursor-pointer">
                     <a target="_blank" href={src}>
                       {src}
                     </a>

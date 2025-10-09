@@ -40,6 +40,11 @@
     },
     "Sources": {
       "type": "richtext"
+    },
+    "countries": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::state.state"
     }
   }
 }
