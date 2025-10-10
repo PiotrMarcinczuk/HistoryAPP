@@ -11,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Title": {
+    "title": {
       "type": "string"
     },
     "war_details": {
@@ -19,13 +19,13 @@
       "relation": "oneToMany",
       "target": "api::article.article"
     },
-    "WarLength": {
+    "warLength": {
       "type": "string"
     },
-    "MapZoom": {
+    "mapZoom": {
       "type": "decimal"
     },
-    "LegendImages": {
+    "legendImages": {
       "type": "media",
       "multiple": true,
       "allowedTypes": [
@@ -35,10 +35,10 @@
         "audios"
       ]
     },
-    "Center": {
+    "center": {
       "type": "json"
     },
-    "Sources": {
+    "sources": {
       "type": "richtext"
     },
     "countries": {

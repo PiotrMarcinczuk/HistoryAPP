@@ -5,18 +5,13 @@ import copyright from "../../public/icons/copyright.png";
 import polandFlag from "../../public/icons/poland-ball.png";
 import battleIcon from "../../public/icons/battle-icon.png";
 import vector from "../../public/icons/vector.png";
-import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
 import { useWarContext } from "../providers/WarProvider";
 
 export default function Navigation() {
-  const context = useNavigationIsOpenContext();
   const warContext = useWarContext();
 
   const { wars } = warContext as { wars: any };
-  const { isNavOpen, setIsNavOpen } = context as {
-    isNavOpen: boolean;
-    setIsNavOpen: () => void;
-  };
+  const [isNavOpen, setIsNavOpen] = useState<boolean>(true);
 
   return (
     <nav
@@ -46,7 +41,7 @@ export default function Navigation() {
         <ul className="relative flex flex-col w-full h-full z-10 gap-1">
           {/* ERROR WHEN WARS IS EMPTY */}
           {wars &&
-            wars.map((war: any) => <WarTitle key={war.id} title={war.Title} />)}
+            wars.map((war: any) => <WarTitle key={war.id} title={war.title} />)}
           <li className="mt-4"></li> {/* spacer for mobile rotation */}
           <li className="absolute bottom-0 left-1/2 -translate-x-1/2 text-nowrap">
             <div className="flex justify-center items-center gap-1">
@@ -60,18 +55,6 @@ export default function Navigation() {
             </div>
           </li>
         </ul>
-
-        {/* <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-nowrap">
-          <div className="flex justify-center items-center gap-1">
-            <img src={copyright} alt="copyright" />
-            <span className="text-extra-small">Code by</span>
-            <a
-              className="text-small text-yellow-normal"
-              href="https://piotr-marcinczuk.pl">
-              Piotr Marcińczuk
-            </a>
-          </div>
-        </div> */}
       </section>
       <div
         className={`absolute top-1/2 ease-in duration-200 ${
@@ -80,7 +63,7 @@ export default function Navigation() {
             : "translate-x-full -right-2"
         } z-10 border-black bg-yellow-darker/80 border-1 rounded-full`}>
         <button
-          onClick={setIsNavOpen}
+          onClick={() => setIsNavOpen(!isNavOpen)}
           className="w-18 h-18 flex justify-center items-center hover:cursor-pointer">
           <img
             src={vector}

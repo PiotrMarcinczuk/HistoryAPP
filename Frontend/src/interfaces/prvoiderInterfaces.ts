@@ -1,7 +1,7 @@
 export interface WarContextType {
   wars?: any;
   setCurrentWar?: (clickedWar: any) => void;
-  currentWar?: Array<{ documentId: string; Title: string }>;
+  currentWar?: Array<{ documentId: string; title: string }>;
 }
 
 export interface EventsContextType {

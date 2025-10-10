@@ -16,8 +16,11 @@ export default function WarProvider({ children }: { children: ReactNode }) {
   const [countriesList, setCountriesList] = useState<any[]>([]);
 
   const onClickWar = (clickedWar: HTMLButtonElement) => {
-    const war = wars.filter((war: any) => war.Title === clickedWar.innerText);
-    setCurrentWar(war);
+    const war = wars.filter(
+      (war: any) =>
+        war.title === clickedWar.innerText && war.id !== currentWar[0].id
+    );
+    if (war.length > 0) setCurrentWar(war);
   };
 
   useEffect(() => {

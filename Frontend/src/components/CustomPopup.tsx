@@ -25,7 +25,7 @@ export default function Popup({ onClose }: { onClose: () => void }) {
             <div className="flex flex-col w-full text-text-primary px-3 py-2">
               <div className="flex justify-between  items-center mb-6">
                 <h1 className="text-bigger-base sm:text-2x-large text-semibold">
-                  {curEvent.Title}
+                  {curEvent.title}
                 </h1>
                 <button
                   onClick={onClose}
@@ -37,7 +37,7 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                 </button>
               </div>
 
-              {curEvent.Description.map((paragraph: any, pIndex: number) => (
+              {curEvent.description.map((paragraph: any, pIndex: number) => (
                 <Fragment key={pIndex}>
                   {/* items-center possible bug */}
                   <div
@@ -47,16 +47,16 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                         : "sm:flex-row"
                     } -mx-1.5`}>
                     <div className="flex flex-col items-center max-w-81 min-w-81 mx-1.5 mt-2 sm:mt-0">
-                      {curEvent.Images[pIndex] && (
+                      {curEvent.images[pIndex] && (
                         <img
-                          src={`${VITE_API_URL_UPLOADS}${curEvent.Images[pIndex].url}`}
+                          src={`${VITE_API_URL_UPLOADS}${curEvent.images[pIndex].url}`}
                           alt="król"
                           className="w-full"
                         />
                       )}
-                      {curEvent.Images[pIndex] && (
+                      {curEvent.images[pIndex] && (
                         <figcaption className="mt-2 text-base md:text-bigger-base text-wrap w-3/4 text-center">
-                          {curEvent.Images[pIndex].caption}
+                          {curEvent.images[pIndex].caption}
                         </figcaption>
                       )}
                     </div>
@@ -76,60 +76,11 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                     </div>
                   </div>
                   {/* Possible bugs */}
-                  {pIndex < curEvent.Description.length - 1 && (
+                  {pIndex < curEvent.description.length - 1 && (
                     <CustomLine isEven={checkIfEven(pIndex)} />
                   )}
                 </Fragment>
               ))}
-
-              {/* <CustomLine isEven={true} /> 
-               <div className="flex flex-col items-center min-w-81 mx-1.5 mt-2 sm:mt-0">
-                  <img src={img1} alt="król" className="w-full" />
-                  <figcaption className="mt-2 text-base md:text-bigger-base text-wrap w-3/4 text-center">
-                    Polski władca na polach Grunwaldu
-                  </figcaption>
-                </div> 
-               <div
-                className={`flex ${
-                  false ? "flex-col" : "flex-col-reverse"
-                } sm:flex-row -mx-1.5`}>
-                <div className="flex flex-col items-center min-w-81 mx-1.5 mt-2 sm:mt-0">
-                  <img src={img1} alt="król" className="w-full" />
-                  <figcaption className="mt-2 text-base md:text-bigger-base text-wrap w-3/4 text-center">
-                    Polski władca na polach Grunwaldu
-                  </figcaption>
-                </div>
-                <span className="text-bigger-base md:text-large lg:text-extra-large mx-1.5">
-                  Bitwa pod Grunwaldem miała miejsce 15 lipca 1410 roku i była
-                  jednym z największych starć średniowiecznej Europy. Starły się
-                  w niej wojska Królestwa Polskiego i Wielkiego Księstwa
-                  Litewskiego pod wodzą króla Władysława II Jagiełły oraz
-                  Wielkiego Księcia Litewskiego Witolda z armią Zakonu
-                  Krzyżackiego, dowodzoną przez Wielkiego Mistrza Ulryka von
-                  Jungingena.
-                </span>
-              </div>
-              <CustomLine isEven={false} />
-              <div
-                className={`flex ${
-                  true ? "flex-col" : "flex-col-reverse"
-                } sm:flex-row -mx-1.5`}>
-                <span className="text-bigger-base md:text-large lg:text-extra-large mx-1.5 mt-2 sm:mt-0">
-                  Bitwa pod Grunwaldem miała miejsce 15 lipca 1410 roku i była
-                  jednym z największych starć średniowiecznej Europy. Starły się
-                  w niej wojska Królestwa Polskiego i Wielkiego Księstwa
-                  Litewskiego pod wodzą króla Władysława II Jagiełły oraz
-                  Wielkiego Księcia Litewskiego Witolda z armią Zakonu
-                  Krzyżackiego, dowodzoną przez Wielkiego Mistrza Ulryka von
-                  Jungingena.
-                </span>
-                <div className="flex flex-col items-center min-w-81 mx-1.5">
-                  <img src={img1} alt="król" className="w-full" />
-                  <figcaption className="mt-2 text-base md:text-bigger-base text-wrap w-3/4 text-center">
-                    Polski władca na polach Grunwaldu
-                  </figcaption>
-                </div>
-              </div>  */}
             </div>
           </Scrollbar>
         </section>,

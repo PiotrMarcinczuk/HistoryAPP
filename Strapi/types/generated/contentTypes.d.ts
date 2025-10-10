@@ -387,32 +387,30 @@ export interface ApiArticleArticle extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    Description: Schema.Attribute.Blocks;
-    EventOrder: Schema.Attribute.Integer;
-    Images: Schema.Attribute.Media<
+    description: Schema.Attribute.Blocks;
+    enemyColor: Schema.Attribute.String;
+    eventOrder: Schema.Attribute.Integer;
+    images: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
-    IsEvent: Schema.Attribute.Boolean & Schema.Attribute.Required;
-    Legend_images: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
+    isEvent: Schema.Attribute.Boolean & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::article.article'
     > &
       Schema.Attribute.Private;
-    MarkerType: Schema.Attribute.Enumeration<
+    markerSize: Schema.Attribute.Integer;
+    markerType: Schema.Attribute.Enumeration<
       ['PL', 'EN', 'PLW', 'PLCIT', 'PLCAS', 'ENW', 'ENCIT', 'ENCAS']
     > &
       Schema.Attribute.Required;
-    PositionOnMapX: Schema.Attribute.Decimal & Schema.Attribute.Required;
-    PositionOnMapY: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    positionOnMapX: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    positionOnMapY: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    SimpleDescription: Schema.Attribute.Text & Schema.Attribute.Required;
-    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    simpleDescription: Schema.Attribute.Text & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -462,27 +460,27 @@ export interface ApiWarWar extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    Center: Schema.Attribute.JSON;
+    center: Schema.Attribute.JSON;
     countries: Schema.Attribute.Relation<'oneToMany', 'api::state.state'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    LegendImages: Schema.Attribute.Media<
+    legendImages: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::war.war'> &
       Schema.Attribute.Private;
-    MapZoom: Schema.Attribute.Decimal;
+    mapZoom: Schema.Attribute.Decimal;
     publishedAt: Schema.Attribute.DateTime;
-    Sources: Schema.Attribute.RichText;
-    Title: Schema.Attribute.String;
+    sources: Schema.Attribute.RichText;
+    title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     war_details: Schema.Attribute.Relation<'oneToMany', 'api::article.article'>;
-    WarLength: Schema.Attribute.String;
+    warLength: Schema.Attribute.String;
   };
 }
 

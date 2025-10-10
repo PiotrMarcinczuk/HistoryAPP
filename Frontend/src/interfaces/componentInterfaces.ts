@@ -10,3 +10,17 @@ export interface CountriesNameOnMapProps {
   fontSize: number;
   text: string;
 }
+
+export interface WarTitleProps {
+  title: string;
+}
+
+export interface ResizeHandlerProps {
+  deps: [boolean];
+}
+
+export interface MapUpdaterProps {
+  zoom: number;
+  center: [number, number];
+  events: any;
+}

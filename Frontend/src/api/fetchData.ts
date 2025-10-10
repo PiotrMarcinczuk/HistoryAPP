@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { useErrorBoundary } from "react-error-boundary";
 const baseUrl = import.meta.env.VITE_API_URL;
@@ -11,7 +10,7 @@ export default function fetchData() {
   const fetchWars = async () => {
     try {
       const response = await axiosInstance.get(
-        `/wars?populate[0]=countries&populate[1]=countries.flag&populate[2]=LegendImages`
+        `/wars?populate[0]=countries&populate[1]=countries.flag&populate[2]=legendImages`
       );
       console.log(response.data.data);
       return response.data.data;
@@ -25,7 +24,7 @@ export default function fetchData() {
     if (!warId) return;
     try {
       const response = await axiosInstance.get(
-        `/wars/${warId}?populate[0]=war_details&populate[1]=war_details.Images`
+        `/wars/${warId}?populate[0]=war_details&populate[1]=war_details.images`
       );
 
       return response.data.data.war_details;

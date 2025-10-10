@@ -11,7 +11,7 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Images": {
+    "images": {
       "type": "media",
       "multiple": true,
       "required": false,
@@ -22,33 +22,22 @@
         "audios"
       ]
     },
-    "Legend_images": {
-      "type": "media",
-      "multiple": true,
-      "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "EventOrder": {
+    "eventOrder": {
       "type": "integer",
       "required": false
     },
-    "PositionOnMapX": {
+    "positionOnMapX": {
       "type": "decimal",
       "required": true
     },
-    "PositionOnMapY": {
+    "positionOnMapY": {
       "type": "decimal",
       "required": true
     },
-    "Description": {
+    "description": {
       "type": "blocks"
     },
-    "MarkerType": {
+    "markerType": {
       "type": "enumeration",
       "required": true,
       "enum": [
@@ -62,17 +51,23 @@
         "ENCAS"
       ]
     },
-    "Title": {
+    "title": {
       "type": "string",
       "required": true
     },
-    "IsEvent": {
+    "isEvent": {
       "type": "boolean",
       "required": true
     },
-    "SimpleDescription": {
+    "simpleDescription": {
       "type": "text",
       "required": true
+    },
+    "markerSize": {
+      "type": "integer"
+    },
+    "enemyColor": {
+      "type": "string"
     }
   }
 }

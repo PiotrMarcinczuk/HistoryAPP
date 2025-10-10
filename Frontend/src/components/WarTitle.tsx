@@ -1,12 +1,12 @@
-interface WarTitleProps {
-  title: string;
-}
 import { useWarContext } from "../providers/WarProvider";
 import { WarContextType } from "../interfaces/prvoiderInterfaces";
+import { memo } from "react";
+import { WarTitleProps } from "../interfaces/componentInterfaces";
 
-export default function WarTitle({ title }: WarTitleProps) {
+function WarTitle({ title }: WarTitleProps) {
   const { currentWar, setCurrentWar }: WarContextType = useWarContext();
-  const warTitle = currentWar?.[0].Title;
+  const warTitle = currentWar?.[0].title;
+
   return (
     <li className="w-full flex font-light">
       <button
@@ -25,3 +25,5 @@ export default function WarTitle({ title }: WarTitleProps) {
     </li>
   );
 }
+
+export default memo(WarTitle);

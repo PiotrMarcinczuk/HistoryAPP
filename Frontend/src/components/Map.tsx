@@ -1,8 +1,7 @@
 import "leaflet/dist/leaflet.css";
 import { useState, Fragment } from "react";
 import openLegend from "../../public/icons/open-legend.png";
-import { useEffect } from "react";
-import { useNavigationIsOpenContext } from "../providers/NavigationIsOpenProvider";
+import { useEffect, useMemo } from "react";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
 import { useWarContext } from "../providers/WarProvider";
 import { useEventsContext } from "../providers/EventsProvider";
@@ -17,18 +16,12 @@ import {
 import CustomPopup from "./CustomPopup";
 import MapElements from "../mapComponents/MapElements";
 import CountriesNameOnMap from "../mapComponents/CountriesNameOnMap";
+import {
+  ResizeHandlerProps,
+  MapUpdaterProps,
+} from "../interfaces/componentInterfaces";
 
-interface resizeHandlerDeps {
-  deps: [boolean];
-}
-
-interface mapUpdater {
-  zoom: number;
-  center: [number, number];
-  events: any;
-}
-
-export function ResizeHandler({ deps }: resizeHandlerDeps) {
+export function ResizeHandler({ deps }: ResizeHandlerProps) {
   const map = useMap();
   useEffect(() => {
     setTimeout(() => {
@@ -39,7 +32,7 @@ export function ResizeHandler({ deps }: resizeHandlerDeps) {
   return null;
 }
 
-function MapUpdater({ zoom, center, events }: mapUpdater) {
+function MapUpdater({ zoom, center, events }: MapUpdaterProps) {
   const map = useMap();
 
   useEffect(() => {
@@ -62,7 +55,6 @@ function MapUpdater({ zoom, center, events }: mapUpdater) {
 }
 
 export default function Map() {
-  const navContext = useNavigationIsOpenContext();
   const legendContext = useLegendIsOpenContext();
   const warContext = useWarContext();
   const { currentWar } = warContext as { currentWar: any };
@@ -75,113 +67,124 @@ export default function Map() {
     setCurrentEvent: (event: any) => void;
   };
 
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
   const { setMarkerType } = MapElements();
-  const { isNavOpen } = navContext as { isNavOpen: boolean };
 
   const { setIsLegendOpen } = legendContext as {
     setIsLegendOpen: () => void;
   };
 
+  const countriesList = useMemo(() => {
+    if (!curWar) return null;
+    return curWar.countries.map((country: any) => {
+      const coordinates = country.coordinates.data;
+      const color = country.colorOnMap;
+      const dElement = country.dElement;
+      const fontSize = country.fontSize;
+      const name = country.name;
+      const bounds = country.bounds.data;
+      return (
+        <Fragment key={country.id}>
+          <Polygon
+            interactive={false}
+            positions={coordinates}
+            color={color}
+            weight={0}
+          />
+          <CountriesNameOnMap
+            dElement={dElement}
+            fontSize={fontSize}
+            text={name}
+            bounds={bounds}
+          />
+        </Fragment>
+      );
+    });
+  }, [curWar]);
+
+  const centerPoints: [number, number] = useMemo(() => {
+    if (!curWar) return [0, 0];
+    return [curWar.center.lat, curWar.center.lng];
+  }, [curWar]);
+
+  const markerPoint = useMemo(() => {
+    if (!events) return null;
+    return events
+      .filter(
+        (event: any) =>
+          event.positionOnMapX !== undefined &&
+          event.positionOnMapY !== undefined &&
+          event.markerSize
+      )
+      .map((event: any) => {
+        return (
+          <Fragment key={event.id}>
+            <Marker
+              position={[
+                parseFloat(event.positionOnMapX),
+                parseFloat(event.positionOnMapY),
+              ]}
+              eventHandlers={{
+                click: () => {
+                  setIsPopupOpen(true);
+                  setCurrentEvent(event);
+                },
+                mouseover: (e) => {
+                  e.target.openPopup();
+                },
+                mouseout: (e) => {
+                  e.target.closePopup();
+                },
+              }}
+              icon={setMarkerType(event.markerType)(
+                event.isEvent ? event.eventOrder : event.title,
+                event.markerSize,
+                event.enemyColor
+              )}>
+              <Popup>
+                <div className="flex flex-col">
+                  <h3 className="font-bold text-bigger-base">{event.title}</h3>
+                  <p className="break-all">{event.simpleDescription}</p>
+                </div>
+              </Popup>
+            </Marker>
+
+            {isPopupOpen && (
+              <CustomPopup onClose={() => setIsPopupOpen(false)} />
+            )}
+          </Fragment>
+        );
+      });
+  }, [events]);
+
   if (!curWar) return null;
   return (
     <section
       // h-[90%] xs:h-[90%]
-      className={`${
-        isNavOpen ? "xl:w-[75%] w-full" : "w-full"
-      } ease-in duration-200 h-[90%] xs:h-[95%] m-2 z-10 flex flex-col justify-center items-center relative`}>
+      className="w-full ease-in duration-200 h-[90%] xs:h-[95%] m-2 z-10 flex flex-col justify-center items-center relative">
       <h1 className="xs:-mt-2 px-12 z-40 absolute top-0 rounded-sm text-bigger-base sm:text-extra-large lg:text-2x-large text-center font-medium text-text-primary bg-orange-dark/40 text-nowrap">
-        {curWar.Title}
-        <br className="sm:hidden" /> {curWar.WarLength}
+        {curWar.title}
+        <br className="sm:hidden" /> {curWar.warLength}
       </h1>
 
       {curWar && (
         <MapContainer
-          center={[curWar.Center.lat, curWar.Center.lng]}
-          zoom={curWar.MapZoom}
+          center={centerPoints}
+          zoom={curWar.mapZoom}
           zoomControl={false}
           scrollWheelZoom={false}
           className="w-full h-full z-30 rounded-sm">
-          {curWar.countries.map((country: any) => {
-            const coordinates = country.coordinates.data;
-            const color = country.colorOnMap;
-            const dElement = country.dElement;
-            const fontSize = country.fontSize;
-            const name = country.name;
-            const bounds = country.bounds.data;
-            return (
-              <Fragment key={country.id}>
-                <Polygon
-                  interactive={false}
-                  positions={coordinates}
-                  color={color}
-                  weight={0}
-                />
-                <CountriesNameOnMap
-                  dElement={dElement}
-                  fontSize={fontSize}
-                  text={name}
-                  bounds={bounds}
-                />
-              </Fragment>
-            );
-          })}
+          {countriesList}
           <MapUpdater
-            zoom={curWar.MapZoom}
-            center={[curWar.Center.lat, curWar.Center.lng]}
+            zoom={curWar.mapZoom}
+            center={centerPoints}
             events={events}
           />{" "}
-          <ResizeHandler deps={[isNavOpen]} />
           <TileLayer
             attribution="Open Street Map"
             url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
           />
-          {events &&
-            events
-              .filter(
-                (event: any) =>
-                  event.PositionOnMapX !== undefined &&
-                  event.PositionOnMapY !== undefined
-              )
-              .map((event: any) => {
-                return (
-                  <Fragment key={event.id}>
-                    <Marker
-                      position={[
-                        parseFloat(event.PositionOnMapX),
-                        parseFloat(event.PositionOnMapY),
-                      ]}
-                      eventHandlers={{
-                        click: () => {
-                          setIsPopupOpen(true);
-                          setCurrentEvent(event);
-                        },
-                        mouseover: (e) => {
-                          e.target.openPopup();
-                        },
-                        mouseout: (e) => {
-                          e.target.closePopup();
-                        },
-                      }}
-                      icon={setMarkerType(event.MarkerType)(
-                        event.IsEvent ? event.EventOrder : event.Title
-                      )}>
-                      <Popup>
-                        <div className="flex flex-col">
-                          <h3 className="font-bold text-bigger-base">
-                            {event.Title}
-                          </h3>
-                          <p className="break-all">{event.SimpleDescription}</p>
-                        </div>
-                      </Popup>
-                    </Marker>
-
-                    {isPopupOpen && (
-                      <CustomPopup onClose={() => setIsPopupOpen(false)} />
-                    )}
-                  </Fragment>
-                );
-              })}
+          {markerPoint}
         </MapContainer>
       )}
       {isPopupOpen && <CustomPopup onClose={() => setIsPopupOpen(false)} />}

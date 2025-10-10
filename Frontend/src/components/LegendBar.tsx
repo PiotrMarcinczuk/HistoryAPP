@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
 import vector from "../../public/icons/vector.png";
 import battleIcon from "../../public/icons/battle-icon-36.png";
@@ -7,7 +7,7 @@ const VITE_API_URL_UPLOADS = import.meta.env.VITE_API_URL_UPLOADS;
 import { Scrollbar } from "react-scrollbars-custom";
 
 export default function LegendBar() {
-  const [sourcesIsOpen, setSourcesIsOpen] = useState(false);
+  const [sourcesIsOpen, setSourcesIsOpen] = useState<boolean>(false);
   const { isLegendOpen, setIsLegendOpen } = useLegendIsOpenContext() as {
     isLegendOpen: boolean;
     setIsLegendOpen: () => void;
@@ -29,7 +29,7 @@ export default function LegendBar() {
         <div className="absolute inset-0 bg-orange-darker/80"></div>
         <div className="relative bg-[#DDD5CD]/20 z-20 h-full w-full flex flex-col overflow-y-auto overflow-x-hidden">
           <ul className="w-full p-1">
-            {curWar?.LegendImages.map((img: any) => {
+            {curWar?.legendImages.map((img: any) => {
               return (
                 <li key={img.id} className="p-1 flex items-center">
                   <img
@@ -55,7 +55,7 @@ export default function LegendBar() {
                   .filter((country) => !country.isEnemy)
                   .map((country) => {
                     return (
-                      <>
+                      <Fragment key={country.id}>
                         <div key={country.id} className="flex w-full">
                           <div className="w-14 h-12 flex items-center">
                             <img
@@ -67,7 +67,7 @@ export default function LegendBar() {
                             </figcaption>
                           </div>
                         </div>
-                      </>
+                      </Fragment>
                     );
                   })}
               </div>
@@ -79,7 +79,7 @@ export default function LegendBar() {
                   .filter((country) => country.isEnemy)
                   .map((country) => {
                     return (
-                      <>
+                      <Fragment key={country.id}>
                         <div key={country.id} className="flex w-full">
                           <div className="w-14 h-12 flex items-center">
                             <img
@@ -91,7 +91,7 @@ export default function LegendBar() {
                             </figcaption>
                           </div>
                         </div>
-                      </>
+                      </Fragment>
                     );
                   })}
               </div>
@@ -116,7 +116,7 @@ export default function LegendBar() {
               sourcesIsOpen ? "overflow-y-auto max-h-32" : "max-h-0"
             }`}>
             <ul>
-              {curWar?.Sources.split(/\s+/).map((src: any, index: number) => {
+              {curWar?.sources.split(/\s+/).map((src: any, index: number) => {
                 return (
                   <li
                     key={index}
