@@ -53,3 +53,7 @@ body {
 .leaflet-control-attribution path {
   display: none;
 }
+
+.leaflet-popup-close-button {
+  display: none; /* Hide the default close button */
+}
