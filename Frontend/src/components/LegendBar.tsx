@@ -29,17 +29,19 @@ export default function LegendBar() {
         <div className="absolute inset-0 bg-orange-darker/80"></div>
         <div className="relative bg-[#DDD5CD]/20 z-20 h-full w-full flex flex-col overflow-y-auto overflow-x-hidden">
           <ul className="w-full p-1">
-            {curWar?.legendImages.map((img: any) => {
-              return (
-                <li key={img.id} className="p-1 flex items-center">
-                  <img
-                    className="max-w-10"
-                    src={`${VITE_API_URL_UPLOADS}${img.url}`}
-                  />
-                  <p className="ml-2 word-break text-base">{img.caption}</p>
-                </li>
-              );
-            })}
+            {/* rem curWar?.legendImages && */}
+            {curWar?.legendImages &&
+              curWar?.legendImages.map((img: any) => {
+                return (
+                  <li key={img.id} className="p-1 flex items-center">
+                    <img
+                      className="max-w-10"
+                      src={`${VITE_API_URL_UPLOADS}${img.url}`}
+                    />
+                    <p className="ml-2 word-break text-base">{img.caption}</p>
+                  </li>
+                );
+              })}
           </ul>
           <Scrollbar
             style={{
@@ -116,17 +118,19 @@ export default function LegendBar() {
               sourcesIsOpen ? "overflow-y-auto max-h-32" : "max-h-0"
             }`}>
             <ul>
-              {curWar?.sources.split(/\s+/).map((src: any, index: number) => {
-                return (
-                  <li
-                    key={index}
-                    className="py-0.1 text-extra-small px-2 hover:underline hover:cursor-pointer">
-                    <a target="_blank" href={src}>
-                      {src}
-                    </a>
-                  </li>
-                );
-              })}
+              {/* rem curWar?.sources && */}
+              {curWar?.sources &&
+                curWar?.sources.split(/\s+/).map((src: any, index: number) => {
+                  return (
+                    <li
+                      key={index}
+                      className="py-0.1 text-extra-small px-2 hover:underline hover:cursor-pointer">
+                      <a target="_blank" href={src}>
+                        {src}
+                      </a>
+                    </li>
+                  );
+                })}
             </ul>
           </Scrollbar>
         </div>

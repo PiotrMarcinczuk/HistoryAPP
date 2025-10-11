@@ -23,7 +23,7 @@ export default function Popup({ onClose }: { onClose: () => void }) {
             noScrollX
             className="relative overflow-x-hidden overflow-y-auto border-2 border-orange-dark rounded-lg bg-orange-normal max-w-[1400px] w-full max-h-[906px] h-full">
             <div className="flex flex-col w-full text-text-primary px-3 py-2">
-              <div className="flex justify-between  items-center mb-6">
+              <div className="flex justify-between items-center mb-6">
                 <h1 className="text-bigger-base sm:text-2x-large text-semibold">
                   {curEvent.title}
                 </h1>
@@ -41,32 +41,33 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                 <Fragment key={pIndex}>
                   {/* items-center possible bug */}
                   <div
-                    className={`flex flex-col-reverse items-center sm:items-start sm:justify-between sm:flex-row ${
+                    className={`flex flex-col-reverse items-center sm:items-start sm:justify-between ${
                       checkIfEven(pIndex)
                         ? "sm:flex-row-reverse"
                         : "sm:flex-row"
                     } -mx-1.5`}>
-                    <div className="flex flex-col items-center max-w-81 min-w-81 mx-1.5 mt-2 sm:mt-0">
+                    {/* max-w-81 min-w-81 */}
+                    <div className="flex flex-col items-center xs:max-w-1/2 mx-1.5 mt-2 sm:mt-0">
                       {curEvent.images[pIndex] && (
                         <img
                           src={`${VITE_API_URL_UPLOADS}${curEvent.images[pIndex].url}`}
-                          alt="król"
-                          className="w-full"
+                          alt={curEvent.images[pIndex].alternativeText}
                         />
                       )}
+
                       {curEvent.images[pIndex] && (
-                        <figcaption className="mt-2 text-base md:text-bigger-base text-wrap w-3/4 text-center">
+                        <figcaption className="mt-2 text-base text-wrap w-3/4 text-center">
                           {curEvent.images[pIndex].caption}
                         </figcaption>
                       )}
                     </div>
-                    <div className="mx-1.5">
+                    <div className="mx-1.5 xs:max-w-2/3">
                       {paragraph.children.map(
                         (child: ParagraphChildType, cIndex: number) =>
                           child.text && (
                             <span
                               key={cIndex}
-                              className={`text-bigger-base md:text-large lg:text-extra-large ${
+                              className={`text-bigger-base md:text-large ${
                                 child.bold ? "font-bold" : ""
                               }`}>
                               {child.text}
