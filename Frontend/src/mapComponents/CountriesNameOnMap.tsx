@@ -13,8 +13,8 @@ export default function CountriesNameOnMap({
         <defs>
           <path id={pathId} d={dElement} fill="transparent" stroke="none" />
         </defs>
-
         <text
+          width={"100%"}
           stroke="none"
           fill="white"
           fontSize={fontSize}

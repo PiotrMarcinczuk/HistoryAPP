@@ -20,7 +20,5 @@ export interface ResizeHandlerProps {
 }
 
 export interface MapUpdaterProps {
-  zoom: number;
-  center: [number, number];
   events: any;
 }

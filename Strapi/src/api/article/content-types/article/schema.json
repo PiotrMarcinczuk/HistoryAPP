@@ -15,12 +15,7 @@
       "type": "media",
       "multiple": true,
       "required": false,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+      "allowedTypes": ["images", "files", "videos", "audios"]
     },
     "eventOrder": {
       "type": "integer",
@@ -40,16 +35,7 @@
     "markerType": {
       "type": "enumeration",
       "required": true,
-      "enum": [
-        "PL",
-        "EN",
-        "PLW",
-        "PLCIT",
-        "PLCAS",
-        "ENW",
-        "ENCIT",
-        "ENCAS"
-      ]
+      "enum": ["PL", "EN", "PLW", "PLCIT", "PLCAS", "ENW", "ENCIT", "ENCAS"]
     },
     "title": {
       "type": "string",

@@ -12,7 +12,6 @@ export default function Popup({ onClose }: { onClose: () => void }) {
   const { currentEvent } = useEventsContext() as EventsContextType;
   const curEvent = currentEvent?.[0];
   const checkIfEven = (index: number) => index % 2 === 0;
-
   if (!curEvent) return null;
 
   return (
@@ -21,7 +20,7 @@ export default function Popup({ onClose }: { onClose: () => void }) {
         <section className="fixed px-2 left-0 top-0 flex justify-center xl:items-center py-4 xl:py-0 w-screen h-full bg-[#D9D9D9]/65 z-50">
           <Scrollbar
             noScrollX
-            className="relative overflow-x-hidden overflow-y-auto border-2 border-orange-dark rounded-lg bg-orange-normal max-w-[1400px] w-full max-h-[906px] h-full">
+            className="relative overflow-x-hidden overflow-y-auto border-2 border-orange-dark rounded-lg bg-orange-normal max-w-[1400px] w-full">
             <div className="flex flex-col w-full text-text-primary px-3 py-2">
               <div className="flex justify-between items-center mb-6">
                 <h1 className="text-bigger-base sm:text-2x-large text-semibold">
