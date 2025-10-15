@@ -18,7 +18,7 @@ export default function LegendBar() {
     countriesList: any[];
   };
   const curWar = currentWar?.[0];
-  console.log(countriesList);
+
   return (
     <section
       className={`max-w-[400px] w-full z-50 h-full fixed top-0 right-0 text-text-primary  ${

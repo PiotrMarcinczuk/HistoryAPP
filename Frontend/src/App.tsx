@@ -8,8 +8,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import ErrorMessage from "./components/ErrorMessage";
 
 function App() {
-  console.log(process.env.STRAPI_ADMIN_MY_PLUGIN_VARIABLE);
-
   return (
     <ErrorBoundary FallbackComponent={(e: any) => <ErrorMessage />}>
       <LegendIsOpenProvider value={false}>
