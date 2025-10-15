@@ -113,20 +113,18 @@ export default function Map() {
                 parseFloat(event.positionOnMapX),
                 parseFloat(event.positionOnMapY),
               ]}
-              eventHandlers={{
-                click: () => {
-                  if (event.isEvent) {
-                    setCurrentEvent(event);
-                    setIsPopupOpen(true);
-                  }
-                },
-                mouseover: (e) => {
-                  e.target.openPopup();
-                },
-                mouseout: (e) => {
-                  e.target.closePopup();
-                },
-              }}
+              eventHandlers={
+                event.isEvent
+                  ? {
+                      click: () => {
+                        setCurrentEvent(event);
+                        setIsPopupOpen(true);
+                      },
+                      mouseover: (e) => e.target.openPopup(),
+                      mouseout: (e) => e.target.closePopup(),
+                    }
+                  : {}
+              }
               icon={setMarkerType(event.markerType)(
                 event.isEvent ? event.eventOrder : event.title,
                 event.markerSize,
