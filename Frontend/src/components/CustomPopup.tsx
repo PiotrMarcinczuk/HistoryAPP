@@ -50,7 +50,7 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                       <div className="flex flex-col items-center xs:max-w-1/2 mx-1.5 mt-2 sm:mt-0">
                         {curEvent.images[pIndex] && (
                           <img
-                            src={`${VITE_API_URL}${curEvent.images[pIndex].url}`}
+                            src={`${curEvent.images[pIndex].url}`}
                             alt={curEvent.images[pIndex].alternativeText}
                           />
                         )}
