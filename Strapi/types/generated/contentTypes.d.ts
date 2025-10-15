@@ -434,9 +434,8 @@ export interface ApiStateState extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    dElement: Schema.Attribute.String;
+    crest: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     flag: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    fontSize: Schema.Attribute.Integer;
     isEnemy: Schema.Attribute.Boolean;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::state.state'> &

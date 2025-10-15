@@ -82,6 +82,21 @@ ${text}
     });
   };
 
+  // const createTextIconPL = (text: string, markerSize: number) => {
+  //   return new L.DivIcon({
+  //     html: ` <div style="font-size: ${
+  //       markerSize * fontSizeMultiplier
+  //     }px; width: ${markerSize * markerSizeMultiplier}px; height: ${
+  //       markerSize * markerSizeMultiplier
+  //     }px;"
+  //                 class="hover:scale-105 ease-in duration-200
+  //                 rounded-full border-[3px] border-[#312112]
+  //                 flex items-center justify-center relative font-semibold
+  //                 bg-[#E35656]
+  //                  text-extra-large text-orange-darker">${text}</div>`,
+  //     className: "",
+  //   });
+  // };
   const createTextIconPL = (text: string, markerSize: number) => {
     return new L.DivIcon({
       html: ` <div style="font-size: ${

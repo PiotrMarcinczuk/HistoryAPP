@@ -20,7 +20,10 @@ export default function WarProvider({ children }: { children: ReactNode }) {
       (war: any) =>
         war.title === clickedWar.innerText && war.id !== currentWar[0].id
     );
-    if (war.length > 0) setCurrentWar(war);
+    if (war.length > 0) {
+      setCurrentWar(war);
+      setCountriesList(war[0].countries);
+    }
   };
 
   useEffect(() => {

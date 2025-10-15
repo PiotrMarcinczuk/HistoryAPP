@@ -20,14 +20,8 @@
     "colorOnMap": {
       "type": "string"
     },
-    "fontSize": {
-      "type": "integer"
-    },
     "bounds": {
       "type": "json"
-    },
-    "dElement": {
-      "type": "string"
     },
     "flag": {
       "type": "media",
@@ -41,6 +35,16 @@
     },
     "isEnemy": {
       "type": "boolean"
+    },
+    "crest": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
     }
   }
 }

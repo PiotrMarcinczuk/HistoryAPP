@@ -13,9 +13,9 @@ function App() {
         <WarProvider>
           <EventsProvider>
             <Navigation />
-            <main className="w-full h-full flex items-center justify-center`">
-              <Map />
-            </main>
+
+            <Map />
+
             <LegendBar />
           </EventsProvider>
         </WarProvider>

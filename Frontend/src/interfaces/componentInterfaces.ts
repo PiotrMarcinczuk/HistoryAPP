@@ -4,11 +4,8 @@ export interface ParagraphChildType {
   bold?: boolean;
 }
 
-export interface CountriesNameOnMapProps {
-  dElement: string;
+export interface CrestOnMapProps {
   bounds: [[number, number], [number, number]];
-  fontSize: number;
-  text: string;
 }
 
 export interface WarTitleProps {
