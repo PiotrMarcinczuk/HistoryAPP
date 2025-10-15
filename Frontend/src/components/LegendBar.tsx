@@ -3,7 +3,7 @@ import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
 import vector from "../../public/icons/Vector.png";
 import battleIcon from "../../public/icons/battle-icon-36.png";
 import { useWarContext } from "../providers/WarProvider";
-const VITE_API_URL_UPLOADS = import.meta.env.VITE_API_URL_UPLOADS;
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 import { Scrollbar } from "react-scrollbars-custom";
 
 export default function LegendBar() {
@@ -35,7 +35,7 @@ export default function LegendBar() {
                   <li key={img.id} className="p-1 flex items-center">
                     <img
                       className="max-w-10"
-                      src={`${VITE_API_URL_UPLOADS}${img.url}`}
+                      src={`${VITE_API_URL}${img.url}`}
                     />
                     <p className="ml-2 word-break text-base">{img.caption}</p>
                   </li>
@@ -60,7 +60,7 @@ export default function LegendBar() {
                         <div key={country.id} className="flex w-full">
                           <div className="w-14 h-12 flex items-center">
                             <img
-                              src={`${VITE_API_URL_UPLOADS}${country.flag.url}`}
+                              src={`${VITE_API_URL}${country.flag.url}`}
                               alt="Flaga państwa"
                             />
                             <figcaption className="ml-1 leading-4 text-left">
@@ -84,7 +84,7 @@ export default function LegendBar() {
                         <div key={country.id} className="flex w-full">
                           <div className="w-14 h-12 flex items-center">
                             <img
-                              src={`${VITE_API_URL_UPLOADS}${country.flag.url}`}
+                              src={`${VITE_API_URL}${country.flag.url}`}
                               alt="Flaga państwa"
                             />
                             <figcaption className="ml-1 leading-4 text-left">

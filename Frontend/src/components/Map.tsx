@@ -20,7 +20,7 @@ import {
   ResizeHandlerProps,
   MapUpdaterProps,
 } from "../interfaces/componentInterfaces";
-const VITE_API_URL_UPLOADS = import.meta.env.VITE_API_URL_UPLOADS;
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export function ResizeHandler({ deps }: ResizeHandlerProps) {
   const map = useMap();
@@ -85,9 +85,7 @@ export default function Map() {
           />
           <SVGOverlay bounds={bounds}>
             <image
-              href={`${
-                country.crest && `${VITE_API_URL_UPLOADS}${country.crest.url}`
-              }`}
+              href={`${country.crest && `${VITE_API_URL}${country.crest.url}`}`}
               x="0"
               y="0"
               width="100%"

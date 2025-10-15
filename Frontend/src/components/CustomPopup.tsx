@@ -6,7 +6,7 @@ import { useEventsContext } from "../providers/EventsProvider";
 import { EventsContextType } from "../interfaces/prvoiderInterfaces";
 import { ParagraphChildType } from "../interfaces/componentInterfaces";
 
-const VITE_API_URL_UPLOADS = import.meta.env.VITE_API_URL_UPLOADS;
+const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export default function Popup({ onClose }: { onClose: () => void }) {
   const { currentEvent } = useEventsContext() as EventsContextType;
@@ -50,7 +50,7 @@ export default function Popup({ onClose }: { onClose: () => void }) {
                       <div className="flex flex-col items-center xs:max-w-1/2 mx-1.5 mt-2 sm:mt-0">
                         {curEvent.images[pIndex] && (
                           <img
-                            src={`${VITE_API_URL_UPLOADS}${curEvent.images[pIndex].url}`}
+                            src={`${VITE_API_URL}${curEvent.images[pIndex].url}`}
                             alt={curEvent.images[pIndex].alternativeText}
                           />
                         )}
