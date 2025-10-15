@@ -4,7 +4,7 @@ import logo from "../../public/images/logo.png";
 import copyright from "../../public/icons/copyright.png";
 import polandFlag from "../../public/icons/poland-ball.png";
 import battleIcon from "../../public/icons/battle-icon.png";
-import vector from "../../public/icons/vector.png";
+import vector from "../../public/icons/Vector.png";
 import { useWarContext } from "../providers/WarProvider";
 
 export default function Navigation() {
