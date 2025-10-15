@@ -1,9 +1,6 @@
 {
   "version": "v1",
   "packages": {
-    "legend-description": {
-      "signature": "1cb6b022fe8b083791978255210cdf1a",
-      "file": true
-    }
+    
   }
 }
