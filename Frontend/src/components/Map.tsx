@@ -1,5 +1,5 @@
 import "leaflet/dist/leaflet.css";
-import { useState, Fragment } from "react";
+import { useState, Fragment, use } from "react";
 import openLegend from "../../public/icons/open-legend.png";
 import { useEffect, useMemo } from "react";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
@@ -12,21 +12,12 @@ import {
   Popup,
   useMap,
   Polygon,
+  useMapEvent,
 } from "react-leaflet";
 import CustomPopup from "./CustomPopup";
 import MapElements from "../mapComponents/MapElements";
 import { SVGOverlay } from "react-leaflet";
 import { MapUpdaterProps } from "../interfaces/componentInterfaces";
-
-function MapUpdater({ events }: MapUpdaterProps) {
-  const map = useMap();
-
-  useEffect(() => {
-    map.invalidateSize();
-  }, [events]);
-
-  return null;
-}
 
 export default function Map() {
   const legendContext = useLegendIsOpenContext();
@@ -42,11 +33,34 @@ export default function Map() {
   };
 
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+  const [markersIsVisible, setMarkersIsVisible] = useState<boolean>(true);
   const { setMarkerType } = MapElements();
 
   const { setIsLegendOpen } = legendContext as {
     setIsLegendOpen: () => void;
   };
+
+  function MapUpdater({ events }: MapUpdaterProps) {
+    const map = useMap();
+
+    useEffect(() => {
+      map.invalidateSize();
+    }, [events, markersIsVisible]);
+
+    return null;
+  }
+
+  function ZoomHandler() {
+    const map = useMap();
+    useMapEvent("zoom", () => {
+      setMarkersIsVisible(map.getZoom() >= 6);
+    });
+    console.log(markersIsVisible);
+    useEffect(() => {
+      setMarkersIsVisible(map.getZoom() >= 6);
+    }, [map]);
+    return null;
+  }
 
   const centerPoints: [number, number] = useMemo(() => {
     if (!curWar) return [52, 21];
@@ -94,35 +108,39 @@ export default function Map() {
       .map((event: any) => {
         return (
           <Fragment key={event.id}>
-            <Marker
-              position={[
-                parseFloat(event.positionOnMapX),
-                parseFloat(event.positionOnMapY),
-              ]}
-              eventHandlers={
-                event.isEvent
-                  ? {
-                      click: () => {
-                        setCurrentEvent(event);
-                        setIsPopupOpen(true);
-                      },
-                      mouseover: (e) => e.target.openPopup(),
-                      mouseout: (e) => e.target.closePopup(),
-                    }
-                  : {}
-              }
-              icon={setMarkerType(event.markerType)(
-                event.isEvent ? event.eventOrder : event.title,
-                event.markerSize,
-                event.enemyColor
-              )}>
-              <Popup>
-                <div className="flex flex-col">
-                  <h3 className="font-bold text-bigger-base">{event.title}</h3>
-                  <p className="text-base">{event.simpleDescription}</p>
-                </div>
-              </Popup>
-            </Marker>
+            {markersIsVisible && (
+              <Marker
+                position={[
+                  parseFloat(event.positionOnMapX),
+                  parseFloat(event.positionOnMapY),
+                ]}
+                eventHandlers={
+                  event.isEvent
+                    ? {
+                        click: () => {
+                          setCurrentEvent(event);
+                          setIsPopupOpen(true);
+                        },
+                        mouseover: (e) => e.target.openPopup(),
+                        mouseout: (e) => e.target.closePopup(),
+                      }
+                    : {}
+                }
+                icon={setMarkerType(event.markerType)(
+                  event.isEvent ? event.eventOrder : event.title,
+                  event.markerSize,
+                  event.enemyColor
+                )}>
+                <Popup>
+                  <div className="flex flex-col">
+                    <h3 className="font-bold text-bigger-base">
+                      {event.title}
+                    </h3>
+                    <p className="text-base">{event.simpleDescription}</p>
+                  </div>
+                </Popup>
+              </Marker>
+            )}
 
             {isPopupOpen && (
               <CustomPopup onClose={() => setIsPopupOpen(false)} />
@@ -130,7 +148,7 @@ export default function Map() {
           </Fragment>
         );
       });
-  }, [events]);
+  }, [events, markersIsVisible]);
 
   if (!curWar) return null;
   return (
@@ -145,13 +163,14 @@ export default function Map() {
 
         {curWar && (
           <MapContainer
-            minZoom={6}
+            minZoom={5}
             doubleClickZoom={false}
             center={centerPoints}
             zoom={curWar.mapZoom}
             className="w-full h-full z-30 rounded-sm">
             {countriesList}
             <MapUpdater events={events} />
+            <ZoomHandler />
             <TileLayer
               attribution="Open Street Map"
               url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
