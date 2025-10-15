@@ -6,8 +6,6 @@ import { useEventsContext } from "../providers/EventsProvider";
 import { EventsContextType } from "../interfaces/prvoiderInterfaces";
 import { ParagraphChildType } from "../interfaces/componentInterfaces";
 
-const VITE_API_URL = import.meta.env.VITE_API_URL;
-
 export default function Popup({ onClose }: { onClose: () => void }) {
   const { currentEvent } = useEventsContext() as EventsContextType;
   const curEvent = currentEvent?.[0];
