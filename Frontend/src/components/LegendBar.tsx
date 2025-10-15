@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
-import vector from "../../public/icons/vector.png";
+import vector from "../../public/icons/Vector.png";
 import battleIcon from "../../public/icons/battle-icon-36.png";
 import { useWarContext } from "../providers/WarProvider";
 const VITE_API_URL_UPLOADS = import.meta.env.VITE_API_URL_UPLOADS;
