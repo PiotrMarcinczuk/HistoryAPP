@@ -161,7 +161,7 @@ export default function Map() {
 
         {curWar && (
           <MapContainer
-            minZoom={6}
+            minZoom={7}
             doubleClickZoom={false}
             center={centerPoints}
             zoom={curWar.mapZoom}

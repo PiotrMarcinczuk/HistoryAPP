@@ -26,12 +26,12 @@ export default function LegendBar() {
       <div className="flex flex-col items-center justify-center p-4 w-full h-full ">
         <div className="absolute inset-0 bg-[url('/images/legend-bg.jpg')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-orange-darker/80"></div>
-        <div className="relative bg-[#DDD5CD]/20 z-20 h-full w-full flex flex-col overflow-y-hidden overflow-x-hidden">
+        <Scrollbar className="relative bg-[#DDD5CD]/20 z-20 h-full w-full flex flex-col overflow-y-hidden overflow-x-hidden">
           <ul className="w-full p-1">
             {curWar?.legendImages &&
               curWar?.legendImages.map((img: any) => {
                 return (
-                  <li key={img.id} className="p-1 flex items-center">
+                  <li key={img.id} className="flex items-center">
                     <img className="max-w-10" src={`${img.url}`} />
                     <p className="ml-2 word-break text-base">{img.caption}</p>
                   </li>
@@ -47,7 +47,7 @@ export default function LegendBar() {
             className="flex-1 text-center flex flex-col items-center mt-8 h-full Legend">
             <p className="text-large">Strony konfliktu:</p>
             <div className="flex text-base mt-2 w-full">
-              <div className="w-1/2 flex items-start justify-start flex-col n p-1">
+              <div className="w-1/2 flex items-start justify-start flex-col p-1">
                 {countriesList
                   .filter((country) => !country.isEnemy)
                   .map((country) => {
@@ -94,31 +94,24 @@ export default function LegendBar() {
               </div>
             </div>
           </Scrollbar>
-          <p className="text-bigger-base text-center mt-10 ease-in duration-200">
-            {sourcesIsOpen ? "Chcesz ukryć źródła?" : "Interesują cię źródła?"}{" "}
-            Kliknij{" "}
-            <button
-              onClick={() => setSourcesIsOpen(!sourcesIsOpen)}
-              className="font-bold hover:cursor-pointer">
-              tutaj
-            </button>
+          <p className="sm:mt-1 md:mt-0 text-center text-small px-1">
+            Jeśli podczas korzystania ze strony napotkałeś jakieś błędy będe
+            wdzięczny jeśli dasz mi znać{" "}
+            <a
+              className="font-bold duration-200 ease-in-out text-center"
+              href="mailto:piotrmarcinczuk@gmail.com">
+              piotrmarcinczuk@gmail.com
+            </a>
           </p>
-          <Scrollbar
-            style={{
-              height: "0",
-              minHeight: sourcesIsOpen ? "100px" : "0px",
-              maxHeight: "calc(100vh - 150px)",
-            }}
-            className={`w-full ease-in duration-200 relative ${
-              sourcesIsOpen ? "overflow-y-auto max-h-32" : "max-h-0"
-            }`}>
-            <ul>
+          <div className="mt-10 px-1">
+            <p>Źródła:</p>
+            <ul className="overflow-hidden ">
               {curWar?.sources &&
                 curWar.sources.split(/\s+/).map((src: any, index: number) => {
                   return (
                     <li
                       key={index}
-                      className="py-0.1 text-extra-small px-2 hover:underline hover:cursor-pointer">
+                      className="py-0.1 text-extra-small hover:underline hover:cursor-pointer">
                       <a target="_blank" href={src}>
                         {src}
                       </a>
@@ -126,8 +119,8 @@ export default function LegendBar() {
                   );
                 })}
             </ul>
-          </Scrollbar>
-        </div>
+          </div>
+        </Scrollbar>
 
         <div
           className={`absolute ease-in duration-200 ${
