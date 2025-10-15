@@ -10,7 +10,7 @@ export default function fetchData() {
   const fetchWars = async () => {
     try {
       const response = await axiosInstance.get(
-        `wars?populate[0]=countries&populate[1]=countries.flag&populate[2]=countries.crest&populate[3]=legendImages`
+        `api/wars?populate[0]=countries&populate[1]=countries.flag&populate[2]=countries.crest&populate[3]=legendImages`
       );
 
       return response.data.data;
@@ -24,7 +24,7 @@ export default function fetchData() {
     if (!warId) return;
     try {
       const response = await axiosInstance.get(
-        `wars/${warId}?populate[0]=war_details&populate[1]=war_details.images`
+        `api/wars/${warId}?populate[0]=war_details&populate[1]=war_details.images`
       );
 
       return response.data.data.war_details;

@@ -12,10 +12,6 @@ export interface WarTitleProps {
   title: string;
 }
 
-export interface ResizeHandlerProps {
-  deps: [boolean];
-}
-
 export interface MapUpdaterProps {
   events: any;
 }

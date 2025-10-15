@@ -16,21 +16,7 @@ import {
 import CustomPopup from "./CustomPopup";
 import MapElements from "../mapComponents/MapElements";
 import { SVGOverlay } from "react-leaflet";
-import {
-  ResizeHandlerProps,
-  MapUpdaterProps,
-} from "../interfaces/componentInterfaces";
-
-export function ResizeHandler({ deps }: ResizeHandlerProps) {
-  const map = useMap();
-  useEffect(() => {
-    setTimeout(() => {
-      map.invalidateSize();
-    }, 500);
-  }, [map, ...deps]);
-
-  return null;
-}
+import { MapUpdaterProps } from "../interfaces/componentInterfaces";
 
 function MapUpdater({ events }: MapUpdaterProps) {
   const map = useMap();
@@ -159,7 +145,7 @@ export default function Map() {
 
         {curWar && (
           <MapContainer
-            minZoom={7}
+            minZoom={6}
             doubleClickZoom={false}
             center={centerPoints}
             zoom={curWar.mapZoom}
