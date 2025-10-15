@@ -94,7 +94,7 @@ export default function LegendBar() {
               </div>
             </div>
           </Scrollbar>
-          <p className="sm:mt-1 md:mt-0 text-center text-small px-1">
+          <p className="sm:mt-3 md:mt-0 text-center text-small px-1">
             Jeśli podczas korzystania ze strony napotkałeś jakieś błędy będe
             wdzięczny jeśli dasz mi znać{" "}
             <a

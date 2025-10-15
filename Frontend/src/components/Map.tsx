@@ -152,7 +152,7 @@ export default function Map() {
       <section
         // h-[90%] xs:h-[90%]
         className="Map w-full ease-in duration-200 h-[90%] xs:h-[95%] m-2 z-10 flex flex-col justify-center items-center relative">
-        <h1 className="xs:-mt-2 px-12 z-40 absolute top-0 rounded-sm text-bigger-base sm:text-extra-large lg:text-2x-large text-center font-medium text-text-primary bg-orange-dark/40 text-nowrap">
+        <h1 className="xs:-mt-2 px-3 sm:px-12 z-40 absolute top-0 rounded-sm text-bigger-base sm:text-extra-large lg:text-2x-large text-center font-medium text-text-primary bg-orange-dark/40 text-nowrap">
           <span>{curWar.title}</span>
           <br className="sm:hidden" /> <span>{curWar.warLength}</span>
         </h1>
