@@ -31,7 +31,7 @@ export default function LegendBar() {
             {curWar?.legendImages &&
               curWar?.legendImages.map((img: any) => {
                 return (
-                  <li key={img.id} className="flex items-center">
+                  <li key={img.id} className="flex py-2 items-center">
                     <img className="max-w-10" src={`${img.url}`} />
                     <p className="ml-2 word-break text-base">{img.caption}</p>
                   </li>
