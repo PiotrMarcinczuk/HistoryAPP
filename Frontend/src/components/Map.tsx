@@ -55,7 +55,7 @@ export default function Map() {
     useMapEvent("zoom", () => {
       setMarkersIsVisible(map.getZoom() >= 6);
     });
-    console.log(markersIsVisible);
+
     useEffect(() => {
       setMarkersIsVisible(map.getZoom() >= 6);
     }, [map]);
