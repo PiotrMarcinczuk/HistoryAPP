@@ -133,9 +133,9 @@ export default function Map() {
                 )}>
                 <Popup>
                   <div className="flex flex-col">
-                    <h3 className="font-bold text-bigger-base">
+                    <h2 className="font-bold text-bigger-base">
                       {event.title}
-                    </h3>
+                    </h2>
                     <p className="text-base">{event.simpleDescription}</p>
                   </div>
                 </Popup>
