@@ -101,5 +101,5 @@ Lista wszystkich danych które są w pełni edytowalne za pomocą panelu adminis
 
 
 
-# <p align="center">Odwiedź aplikacje kilkając napis ⬇️⬇️⬇️</p>
+# <p align="center">Odwiedź aplikację kilkając napis ⬇️⬇️⬇️</p>
 <h1 align="center"><a href="https://polstory.pl/">Polstory</a></h1>
