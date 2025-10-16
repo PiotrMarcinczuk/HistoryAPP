@@ -21,24 +21,24 @@ import { MapUpdaterProps } from "../interfaces/componentInterfaces";
 
 export default function Map() {
   const legendContext = useLegendIsOpenContext();
+  const { setIsLegendOpen } = legendContext as {
+    setIsLegendOpen: () => void;
+  };
+
   const warContext = useWarContext();
   const { currentWar } = warContext as { currentWar: any };
   const curWar = currentWar?.[0];
 
   const eventsContext = useEventsContext();
-
   const { events, setCurrentEvent } = eventsContext as {
     events: any;
     setCurrentEvent: (event: any) => void;
   };
 
-  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
-  const [markersIsVisible, setMarkersIsVisible] = useState<boolean>(true);
   const { setMarkerType } = MapElements();
 
-  const { setIsLegendOpen } = legendContext as {
-    setIsLegendOpen: () => void;
-  };
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
+  const [markersIsVisible, setMarkersIsVisible] = useState<boolean>(true);
 
   function MapUpdater({ events }: MapUpdaterProps) {
     const map = useMap();
@@ -149,13 +149,10 @@ export default function Map() {
         );
       });
   }, [events, markersIsVisible]);
-
   if (!curWar) return null;
   return (
     <main className="w-full h-full flex items-center justify-center">
-      <section
-        // h-[90%] xs:h-[90%]
-        className="Map w-full ease-in duration-200 h-[90%] xs:h-[95%] m-2 z-10 flex flex-col justify-center items-center relative">
+      <section className="Map w-full ease-in duration-200 h-[90%] xs:h-[95%] m-2 z-10 flex flex-col justify-center items-center relative">
         <h1 className="xs:-mt-2 px-3 sm:px-12 z-40 absolute top-0 rounded-sm text-bigger-base sm:text-extra-large lg:text-2x-large text-center font-medium text-text-primary bg-orange-dark/40 text-nowrap">
           <span>{curWar.title}</span>
           <br className="sm:hidden" /> <span>{curWar.warLength}</span>

@@ -6,7 +6,6 @@ import { useWarContext } from "../providers/WarProvider";
 import { Scrollbar } from "react-scrollbars-custom";
 
 export default function LegendBar() {
-  const [sourcesIsOpen, setSourcesIsOpen] = useState<boolean>(false);
   const { isLegendOpen, setIsLegendOpen } = useLegendIsOpenContext() as {
     isLegendOpen: boolean;
     setIsLegendOpen: () => void;
@@ -32,7 +31,11 @@ export default function LegendBar() {
               curWar?.legendImages.map((img: any) => {
                 return (
                   <li key={img.id} className="flex py-2 items-center">
-                    <img className="max-w-10" src={`${img.url}`} />
+                    <img
+                      className="max-w-10"
+                      src={`${img.url}`}
+                      alt={img.alternativeText}
+                    />
                     <p className="ml-2 word-break text-base">{img.caption}</p>
                   </li>
                 );
@@ -57,7 +60,7 @@ export default function LegendBar() {
                           <div className="w-14 h-12 flex items-center">
                             <img
                               src={`${country.flag.url}`}
-                              alt="Flaga państwa"
+                              alt={country.flag.alternativeText}
                             />
                             <figcaption className="ml-1 leading-4 text-left">
                               {country.name}
@@ -81,7 +84,7 @@ export default function LegendBar() {
                           <div className="w-14 h-12 flex items-center">
                             <img
                               src={`${country.flag.url}`}
-                              alt="Flaga państwa"
+                              alt={country.flag.alternativeText}
                             />
                             <figcaption className="ml-1 leading-4 text-left">
                               {country.name}

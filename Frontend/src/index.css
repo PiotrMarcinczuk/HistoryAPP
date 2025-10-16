@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "Roboto";
+  src: url("public/fonts/roboto/Roboto-VariableFont_wdth_wght.ttf");
+}
+
 * {
   font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
 }
 
 html,

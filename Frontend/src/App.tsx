@@ -3,10 +3,10 @@ import Navigation from "./components/Navigation";
 import WarProvider from "./providers/WarProvider";
 import EventsProvider from "./providers/EventsProvider";
 import LegendIsOpenProvider from "./providers/LegendIsOpenProvider";
-import LegendBar from "./components/LegendBar";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorMessage from "./components/ErrorMessage";
-
+import { lazy, Suspense } from "react";
+const LegendBar = lazy(() => import("./components/LegendBar"));
 function App() {
   return (
     <ErrorBoundary FallbackComponent={(e: any) => <ErrorMessage />}>
@@ -14,10 +14,10 @@ function App() {
         <WarProvider>
           <EventsProvider>
             <Navigation />
-
             <Map />
-
-            <LegendBar />
+            <Suspense fallback={<div>Loading...</div>}>
+              <LegendBar />
+            </Suspense>
           </EventsProvider>
         </WarProvider>
       </LegendIsOpenProvider>

@@ -9,6 +9,7 @@ import { ParagraphChildType } from "../interfaces/componentInterfaces";
 export default function Popup({ onClose }: { onClose: () => void }) {
   const { currentEvent } = useEventsContext() as EventsContextType;
   const curEvent = currentEvent?.[0];
+
   const checkIfEven = (index: number) => index % 2 === 0;
   if (!curEvent) return null;
 
