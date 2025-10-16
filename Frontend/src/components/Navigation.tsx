@@ -20,7 +20,7 @@ export default function Navigation() {
       } w-full max-w-[400px] h-full fixed text-text-primary z-20`}>
       {/* z-40 to be over map*/}
       <section className="w-full h-full flex flex-col overflow-y-auto overflow-x-hidden z-20">
-        <div className="fixed inset-0 bg-[url('/images/nav-bg.png')] bg-cover bg-center pointer-events-none"></div>
+        <div className="fixed inset-0 bg-[url('/images/nav-bg.webp')] bg-cover bg-center pointer-events-none"></div>
         <div className="fixed inset-0 bg-orange-darker/80 pointer-events-none"></div>
 
         <div className=" z-10 mx-auto my-10">

@@ -23,7 +23,7 @@ export default function LegendBar() {
         isLegendOpen ? "translate-x-0" : "translate-x-full"
       } ease-in duration-200 `}>
       <div className="flex flex-col items-center justify-center p-4 w-full h-full ">
-        <div className="absolute inset-0 bg-[url('/images/legend-bg.jpg')] bg-cover bg-center"></div>
+        <div className="absolute inset-0 bg-[url('/images/legend-bg.webp')] bg-cover bg-center"></div>
         <div className="absolute inset-0 bg-orange-darker/80"></div>
         <Scrollbar className="relative bg-[#DDD5CD]/20 z-20 h-full w-full flex flex-col overflow-y-hidden overflow-x-hidden">
           <ul className="w-full p-1">
