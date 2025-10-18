@@ -1,10 +1,10 @@
 import { useState } from "react";
 import WarTitle from "./WarTitle";
-import logo from "../../public/images/logo.png";
-import copyright from "../../public/icons/copyright.png";
-import polandFlag from "../../public/icons/poland-ball.png";
-import battleIcon from "../../public/icons/battle-icon.png";
-import vector from "../../public/icons/Vector.png";
+import logo from "../../public/images/logo.svg";
+import copyright from "../../public/icons/copyright.svg";
+import polandFlag from "../../public/icons/poland-ball.svg";
+import battleIcon from "../../public/icons/battle-icon.svg";
+import arrow from "../../public/icons/arrow.svg";
 import { useWarContext } from "../providers/WarProvider";
 
 export default function Navigation() {
@@ -65,7 +65,7 @@ export default function Navigation() {
           onClick={() => setIsNavOpen(!isNavOpen)}
           className="w-18 h-18 flex justify-center items-center hover:cursor-pointer">
           <img
-            src={vector}
+            src={arrow}
             alt="navbar button"
             className={`ease-in duration-200 ${isNavOpen ? "" : "rotate-180"}`}
           />

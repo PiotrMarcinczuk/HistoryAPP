@@ -1,6 +1,6 @@
 import "leaflet/dist/leaflet.css";
-import { useState, Fragment, use } from "react";
-import openLegend from "../../public/icons/open-legend.png";
+import { useState, Fragment } from "react";
+import openLegend from "../../public/icons/open-legend.svg";
 import { useEffect, useMemo } from "react";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
 import { useWarContext } from "../providers/WarProvider";

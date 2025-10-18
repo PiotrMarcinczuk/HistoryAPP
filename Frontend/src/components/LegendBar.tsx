@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { useLegendIsOpenContext } from "../providers/LegendIsOpenProvider";
-import vector from "../../public/icons/Vector.png";
-import battleIcon from "../../public/icons/battle-icon-36.png";
+import arrow from "../../public/icons/arrow.svg";
+import battleIcon from "../../public/icons/battle-icon-24.svg";
 import { useWarContext } from "../providers/WarProvider";
 import { Scrollbar } from "react-scrollbars-custom";
 
@@ -97,7 +97,7 @@ export default function LegendBar() {
               </div>
             </div>
           </Scrollbar>
-          <p className="sm:mt-3 md:mt-0 text-center text-small px-1">
+          <p className="mt-3 md:mt-0 text-center text-small px-1">
             Jeśli podczas korzystania ze strony napotkałeś jakieś błędy będe
             wdzięczny jeśli dasz mi znać{" "}
             <a
@@ -132,7 +132,7 @@ export default function LegendBar() {
           <button
             onClick={setIsLegendOpen}
             className="w-18 h-18 rotate-180 flex justify-center items-center hover:cursor-pointer">
-            <img src={vector} alt="navbar button" />
+            <img src={arrow} alt="navbar button" />
           </button>
         </div>
       </div>
