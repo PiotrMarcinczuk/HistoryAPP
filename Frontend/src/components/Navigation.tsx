@@ -6,6 +6,7 @@ import polandFlag from "../../public/icons/poland-ball.svg";
 import battleIcon from "../../public/icons/battle-icon.svg";
 import arrow from "../../public/icons/arrow.svg";
 import { useWarContext } from "../providers/WarProvider";
+import { ClipLoader } from "react-spinners";
 
 export default function Navigation() {
   const warContext = useWarContext();
@@ -39,8 +40,13 @@ export default function Navigation() {
         <div className="mx-auto z-10 text-3x-large xs:mt-10">1400 - 1500</div>
         <ul className="relative flex flex-col w-full h-full z-10 gap-1">
           {/* ERROR WHEN WARS IS EMPTY */}
-          {wars &&
-            wars.map((war: any) => <WarTitle key={war.id} title={war.title} />)}
+          {wars.length > 0 ? (
+            wars.map((war: any) => <WarTitle key={war.id} title={war.title} />)
+          ) : (
+            <div className="flex justify-center w-full">
+              <ClipLoader color="#2563eb" size={36} />
+            </div>
+          )}
           <li className="mt-4"></li> {/* spacer for mobile rotation */}
           <li className="absolute bottom-0 left-1/2 -translate-x-1/2 text-nowrap">
             <div className="flex justify-center items-center gap-1">

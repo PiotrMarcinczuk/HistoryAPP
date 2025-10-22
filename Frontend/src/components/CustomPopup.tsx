@@ -16,7 +16,9 @@ export default function Popup({ onClose }: { onClose: () => void }) {
   return (
     <>
       {createPortal(
-        <section className="fixed px-2 left-0 top-0 flex justify-center xl:items-center py-4 xl:py-0 w-screen h-full bg-[#D9D9D9]/65 z-50">
+        <section
+          onClick={onClose}
+          className="fixed px-2 left-0 top-0 flex justify-center xl:items-center py-4 xl:py-0 w-screen h-full bg-[#D9D9D9]/65 z-50">
           <Scrollbar
             noScrollX
             className="flex relative overflow-y-auto max-w-[1400px] w-full">

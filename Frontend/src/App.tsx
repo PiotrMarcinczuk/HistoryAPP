@@ -5,7 +5,7 @@ import EventsProvider from "./providers/EventsProvider";
 import LegendIsOpenProvider from "./providers/LegendIsOpenProvider";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorMessage from "./components/ErrorMessage";
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 const LegendBar = lazy(() => import("./components/LegendBar"));
 function App() {
   return (
@@ -15,9 +15,7 @@ function App() {
           <EventsProvider>
             <Navigation />
             <Map />
-            <Suspense fallback={<div>Loading...</div>}>
-              <LegendBar />
-            </Suspense>
+            <LegendBar />
           </EventsProvider>
         </WarProvider>
       </LegendIsOpenProvider>

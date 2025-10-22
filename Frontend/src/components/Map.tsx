@@ -18,6 +18,7 @@ import CustomPopup from "./CustomPopup";
 import MapElements from "../mapComponents/MapElements";
 import { SVGOverlay } from "react-leaflet";
 import { MapUpdaterProps } from "../interfaces/componentInterfaces";
+import { ClipLoader } from "react-spinners";
 
 export default function Map() {
   const legendContext = useLegendIsOpenContext();
@@ -97,7 +98,12 @@ export default function Map() {
   }, [curWar]);
 
   const markerPoint = useMemo(() => {
-    if (!events) return null;
+    if (!events)
+      return (
+        <div className="absolute inset-0 z-[1000] flex items-center justify-center bg-white/70 backdrop-blur-sm">
+          <ClipLoader color="#2563eb" size={80} />
+        </div>
+      );
     return events
       .filter(
         (event: any) =>
@@ -176,11 +182,13 @@ export default function Map() {
           </MapContainer>
         )}
         {isPopupOpen && <CustomPopup onClose={() => setIsPopupOpen(false)} />}
-        <button
-          onClick={setIsLegendOpen}
-          className="z-40 absolute bottom-0 right-0 px-3 pt-4 pb-6 ease-in duration-200 bg-[#DAD7D7]/20 hover:bg-[#DAD7D7]/50 rounded-tl-sm hover:cursor-pointer">
-          <img src={openLegend} alt="open legend" />
-        </button>
+        {curWar && events && (
+          <button
+            onClick={setIsLegendOpen}
+            className="z-40 absolute bottom-0 right-0 px-3 pt-4 pb-6 ease-in duration-200 bg-[#DAD7D7]/20 hover:bg-[#DAD7D7]/50 rounded-tl-sm hover:cursor-pointer">
+            <img src={openLegend} alt="open legend" />
+          </button>
+        )}
       </section>
     </main>
   );
