@@ -3,29 +3,54 @@
   <head>
     <meta name="title" content="Polstory" />
     <title>Polstory - Wojny Polski w latach 1400 - 1500</title>
+    <style>
+      @font-face {
+        font-family: Roboto;
+        src: url(/fonts/roboto/Roboto-VariableFont_wdth_wght.ttf);
+        font-display: swap;
+      }
+      * {
+        font-display: swap;
+        font-family: Roboto, sans-serif;
+      }
+      html,
+      body {
+        background-color: #000;
+        overflow: hidden;
+      }
+      #root {
+        background-color: #91785d;
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
     <meta
       name="description"
       content="Historia wojen Polski i Litwy, wojny toczone w latach 1400 - 1500 między innymi z Zakonem Krzyżackim, Węgrami, Tatarami i Imperium Osmańskim czyli Turcją." />
     <meta
       name="keywords"
-      content="Wojny, Rzeczpospolita, Polska, Litwa, Zakon Krzyżacki, Turcja, Imperium Osmańskie, Węgry, Historia, mapy, Malbork, Bitwa pod Grunwaldem" />
+      content="Historia Polski, Wojny, Rzeczpospolita, Polska, Litwa, Zakon Krzyżacki, Turcja, Imperium Osmańskie, Węgry, Historia, mapy, Malbork, Bitwa pod Grunwaldem, Piotr Marcińczuk" />
     <meta name="robots" content="index, follow" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="language" content="Polish" />
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/src/index.css" rel="stylesheet" />
+    <link
+      rel="preload"
+      as="style"
+      type="text/css"
+      href="/src/index.css"
+      onload="this.onload = null; this.rel = 'stylesheet';" />
     <link
       rel="preload"
       as="image"
       href="./images/nav-bg.webp"
       fetchpriority="high" />
-    <link rel="icon" type="image/x-icon" href="./icons/favicon-32x32.ico" />
-    <script
+    <link rel="icon" type="image/x-icon" href="./icons/favicon.ico" />
+    <!-- <script
       async
-      src="https://www.googletagmanager.com/gtag/js?id=G-EFYE7PRS97"></script>
-    <script>
+      src="https://www.googletagmanager.com/gtag/js?id=G-EFYE7PRS97"></script> -->
+    <!-- <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
@@ -33,7 +58,7 @@
       gtag("js", new Date());
 
       gtag("config", "G-EFYE7PRS97");
-    </script>
+    </script> -->
   </head>
   <body>
     <div id="root"></div>
