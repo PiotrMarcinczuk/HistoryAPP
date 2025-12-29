@@ -10,15 +10,7 @@ const LegendBar = lazy(() => import("./components/LegendBar"));
 function App() {
   return (
     <ErrorBoundary FallbackComponent={(e: any) => <ErrorMessage />}>
-      <LegendIsOpenProvider value={false}>
-        <WarProvider>
-          <EventsProvider>
-            <Navigation />
-            <Map />
-            <LegendBar />
-          </EventsProvider>
-        </WarProvider>
-      </LegendIsOpenProvider>
+      <ErrorMessage />
     </ErrorBoundary>
   );
 }

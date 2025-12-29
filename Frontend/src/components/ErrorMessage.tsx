@@ -4,17 +4,22 @@ export default function ErrorMessage() {
   const { resetBoundary } = useErrorBoundary();
 
   return (
-    <div className="text-bigger-base sm:text-2x-large md:text-4x-large flex flex-col rounded-sm items-center justify-center w-3/4 h-3/4 md:w-1/2 md:h-1/2 p-4 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-white bg-orange-darker/60">
-      <p className="text-center">Ups... Coś poszło nie tak!</p>
-      <p className="text-center mt-2 text-base sm:text-extra-large">
-        Jeśli problem występuje nadal, skontaktuj się z administratorem.{" "}
-        <a href="mailto:piotrmarcinczuk@gmail.com">piotrmarcinczuk@gmail.com</a>
+    <div className="text-bigger-base sm:text-2x-large flex flex-col rounded-sm items-center justify-center w-3/4 h-3/4 md:w-1/2 md:h-1/2 p-4 absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 text-white bg-orange-darker/60">
+      <p className="text-center">
+        Przerwa techniczna z powodu wyczerpania zasobów
+        <br />
+        <span className="text-large">do 01.01.2026</span>
       </p>
-      <button
+      {/* <p className="text-center mt-2 text-base sm:text-extra-large">
+        {" "}
+        <a href="mailto:piotrmarcinczuk@gmail.com">piotrmarcinczuk@gmail.com</a>
+      </p> */}
+      {/* <button
         className="p-12 md:p-4 md:px-10 rounded-sm hover:cursor-pointer bg-orange-darker hover:bg-orange-darker/80 ease-in-out duration-500 text-extra-large md:text-2x-large mt-8"
-        onClick={resetBoundary}>
+        onClick={resetBoundary}
+      >
         Spróbuj ponownie
-      </button>
+      </button> */}
     </div>
   );
 }
